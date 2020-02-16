@@ -3,10 +3,23 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.modeler</groupId>
   <artifactId>modeler</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <version>1.0</version>
   <name>modeler</name>
   <url>http://maven.apache.org</url>
+  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -15,7 +28,24 @@
         <version>4.13</version>
         <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
   </dependencies>
   <build>
     <plugins>
@@ -24,6 +54,10 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M3</version>
         </plugin>
+        <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+		</plugin>
         </plugins>
   </build>
 </project>
