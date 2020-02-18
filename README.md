@@ -26,6 +26,6 @@
 
 ![start](img/Modeler%201.PNG)
 
-![start](img/Modeler%202.png)
+![start](img/Modeler%202.PNG)
 
-![start](img/Modeler%203.png)
+![start](img/Modeler%203.PNG)
