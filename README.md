@@ -21,3 +21,11 @@
 ## Casos de uso
 
 ![start](img/Casos%20de%20uso.png)
+
+## Diseño
+
+![start](img/Modeler%201.png)
+
+![start](img/Modeler%202.png)
+
+![start](img/Modeler%203.png)
