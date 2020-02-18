@@ -24,7 +24,7 @@
 
 ## Diseño
 
-![start](img/Modeler%201.png)
+![start](img/Modeler%201.PNG)
 
 ![start](img/Modeler%202.png)
 
