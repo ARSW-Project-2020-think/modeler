@@ -15,4 +15,9 @@
 [Definicion de proyecto](https://github.com/ARSW-Project-2020-think/Project/wiki/Definicion-de-Proyecto)
 
 ## Diagrama de clases
+
+![img](img/Diagrama%20de%20Clases.png)
+
+## Casos de uso
+
 ![start](img/Casos%20de%20uso.png)
