@@ -13,3 +13,6 @@
 [CLASS MODELER](https://class-modeler.herokuapp.com/)
 
 [Definicion de proyecto](https://github.com/ARSW-Project-2020-think/Project/wiki/Definicion-de-Proyecto)
+
+## Diagrama de clases
+![img](img/Casos de uso.png)
