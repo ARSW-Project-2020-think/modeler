@@ -93,7 +93,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 
 ## Diagrama entidad-Relacion
 
-![start](img/Entidad.PNG)
+![start](img/Entidad.png)
 
 ## Diagrama de componentes
 
