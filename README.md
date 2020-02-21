@@ -32,10 +32,76 @@ Un sistema de control de versiones que permita retomar el proyecto sin necesidad
 
 ![start](img/Casos%20de%20uso.png)
 
-## Diseño
+**Registrar Proyecto**
 
-![start](img/Modeler%201.PNG)
+COMO usuario QUIERO registrar un proyecto PARA PODER empezar mis modelos de diagramas de clases y casos de uso
 
-![start](img/Modeler%202.PNG)
+**Consultar un proyecto**
+ 
+COMO usuario QUIERO consultar un proyecto PARA PODER saber en que estado esta, que me falta y que debo mejorar.
 
-![start](img/Modeler%203.PNG)
+**Registrar un versión**
+
+COMO usuario QUIERO registrar una version PARA PODER tener un control de los cambios que voy a realizar a mis proyectos	
+
+**Consultar una version**
+
+COMO usuario QUIERO consultar una version PARA PODER
+recuperar algo que necesite de esta version
+
+**Registrar un colaborador**
+
+COMO usuario QUIERO registrar un colaborador PARA PODER trabajar en equipo en mi proyecto
+
+**Consultar colaboradores**
+
+Como usuario quiero consultar los colaboradores para saber quienes tiene derecho a modificar mi proyecto
+
+
+**Registrar un modelo**
+
+COMO usuario QUIERO registrar un modelo PARA PODER realizar el diagrama que necesite
+
+**Consultar un modelo**
+
+COMO usuario QUIERO consultar un modelo PARA PODER saber los cambios que debo a hacerle al mismo y/o añadirle mas cosas
+
+**Registrar linea**
+
+COMO usuario QUIERO registrar una linea PARA PODER generar relacion entre los diferentes compotenes de algun modelo
+
+**Registrar usuario**
+
+COMO usuario QUIERO registrar un usuario PARA PODER poder administrar mis modelos
+
+**Consultar usuario**
+
+COMO usuario QUIERO consultar un usuario PARA PODER añadir colaboradores a mis proyectos.
+
+**Registrar rectangulo**
+
+COMO usuario QUIERO registrar un rectangulo PARA PODER representar un concepto en un modelo. 
+
+**Registrar ovalo**
+
+COMO usuario QUIERO registrar un ovalo PARA PODER representar un caso de uso
+
+**Registrar actor**
+
+COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de casos de uso
+
+
+## Diagrama entidad-Relacion
+
+![start](img/Entidad.PNG)
+
+## Diagrama de componentes
+
+
+## Diseño interfaz graficaño
+
+![start](img/Modeler%201.PNG)G)
+
+![start](img/Modeler%202.PNG)G)
+
+![start](img/Modeler%203.PNG)G)
