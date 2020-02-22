@@ -99,7 +99,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 
 ## Diagrama de componentes
 
-![start](img/Diagrama%20de%20componentes.png)
+![start](img/Diagramas%20de%20componentes.png)
 
 ## Diseño interfaz graficaño
 **Vista de registro**
