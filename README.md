@@ -101,7 +101,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 ## Diseño interfaz graficaño
 **Vista de registro**
 
-![start](img/Modeler1.PNG)G)
+![start](img/Modeler1.PNG)
 
 **Vista de login**
 
@@ -111,7 +111,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 **Vista de proyectos**
 
 
-![start](img/Modeler%202.PNG)G)
+![start](img/Modeler%202.PNG)
 
 **Crear Diagrama**
 
