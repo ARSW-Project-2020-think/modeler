@@ -134,6 +134,6 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 ![start](img/colaboradores.PNG)
 
 
-## Diagramas secuencia
+## Diagramas de Secuencia
 
-[link](img/Secuencia)
+[Diagramas de Secuencia](img/Secuencia)
