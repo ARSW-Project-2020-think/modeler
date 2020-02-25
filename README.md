@@ -138,3 +138,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 ## Diagramas de Secuencia
 
 [Diagramas de Secuencia](img/Secuencia)
+
+## Taiga
+
+[Link](https://tree.taiga.io/project/jeisonsr43-modeler/timeline)
