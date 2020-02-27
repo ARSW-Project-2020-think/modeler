@@ -12,6 +12,18 @@
 
 [CLASS MODELER LINK](https://class-modeler.herokuapp.com/)
 
+## Credenciales de base de datos
+
+Host: ec2-184-72-235-80.compute-1.amazonaws.com
+
+Base de datos: d7huo5cps0ots
+
+usuario: lyvcjuynzppnyh
+
+puerto: 5432
+
+password: 2c339db0592217044fe134f20addfbfe1e798c0412a62b31433b650464157f59
+
 ### Problema:
 
 En muchas ocasiones los desarrolladores de software o personas con necesidades similares utilizan los diagramas UML para modelar una solución a un problema. Esto en ocasiones es tedioso puesto que solo una persona puede realizar el trabajo, puede ser extenso y se tiende a cometer errores. También si se está con un compañero, esa persona sólo puede observar mientras se realiza el diagrama, al trabajar más de una persona al tiempo, es necesario compartir el archivo para que la otra persona continúe y haga su parte. El problema radica en que no se puede trabajar al tiempo, ya que, si se hace, es necesario unir los dos proyectos manualmente y esto puede ser peor ya que genera más desorden.
