@@ -37,9 +37,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String jwtToken = null;
 
 
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+        if (requestTokenHeader != null) {
 
-            jwtToken = requestTokenHeader.substring(7);
+            jwtToken = requestTokenHeader;
 
             try {
 
