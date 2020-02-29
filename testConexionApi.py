@@ -1,5 +1,13 @@
 from requests import get, post
+print("Localhost")
 z = get("http://localhost:8080/user/login",data='{"username":"jay@mail.com"}',headers={"Content-Type":"application/json"})
+print(z)
 w = z.json()
 print(w)
 print(get("http://localhost:8080/api",headers={"Authorization":"Bearer "+w["token"]}).text)
+print("heroku")
+z = get("https://class-modeler.herokuapp.com/user/login",data='{"username":"jay@mail.com"}',headers={"Content-Type":"application/json"})
+print(z)
+w = z.json()
+print(w)
+print(get("https://class-modeler.herokuapp.com/api",headers={"Authorization":"Bearer "+w["token"]}).text)
