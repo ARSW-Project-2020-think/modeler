@@ -1,4 +1,4 @@
-from requests import get, post
+from requests import get
 print("Localhost")
 z = get("http://localhost:8080/user/login",data='{"username":"jay@mail.com"}',headers={"Content-Type":"application/json"})
 print(z)
