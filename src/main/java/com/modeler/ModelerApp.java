@@ -16,12 +16,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;/**
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableJpaRepositories("com.modeler.repositories")
+@ComponentScan(basePackages= {"com.modeler"})
 public class ModelerApp
 {
-	 @Bean
-	 public BCryptPasswordEncoder bCryptPasswordEncoder() {
-	        return new BCryptPasswordEncoder();
-	  }
     public static void main( String[] args )
     {
     	SpringApplication.run(ModelerApp.class,args);
