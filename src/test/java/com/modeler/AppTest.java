@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.modeler.controllers.UserController;
+import org.springframework.test.web.servlet.MockMvc;
+
 import com.modeler.model.Usuario;
 import com.modeler.repositories.UserRepository;
 
@@ -23,11 +25,12 @@ import com.modeler.repositories.UserRepository;
 		"spring.datasource.username=sa",
 		"spring.datasource.password=sa"
 })
+@AutoConfigureMockMvc
 public class AppTest {
 	@Autowired
-	private UserController user;
-	@Autowired
 	private UserRepository repo;
+	@Autowired
+	private MockMvc mockMvc;
     @Test
     public void testApp()
     {
