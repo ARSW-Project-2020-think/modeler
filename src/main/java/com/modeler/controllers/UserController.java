@@ -36,10 +36,8 @@ public class UserController {
 			userService.add(user);
 			return new ResponseEntity<>(user,HttpStatus.OK);
 		} catch (ModelerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new ResponseEntity<>(user,HttpStatus.BAD_GATEWAY);
 		}
-		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> getAll(){
