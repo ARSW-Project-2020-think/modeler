@@ -43,7 +43,7 @@ public class UserController {
 	public ResponseEntity<?> getAll(){
 		return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
 	}
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest){
 		final UserDetails userDetails = jwtUserDetailsService
 
