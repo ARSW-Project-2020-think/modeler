@@ -83,7 +83,7 @@ public class AppTest {
         try {
             repo.save(new Usuario("cv@hotmail.com", "CeVi", "jay123"));
             String v = mapper.writeValueAsString(new JwtRequest("cv@hotmail.com", "jay123"));
-            mock.perform(get("/user/login").content(v).contentType("application/json")).andExpect(status().is2xxSuccessful());
+            mock.perform(post("/user/login").content(v).contentType("application/json")).andExpect(status().is2xxSuccessful());
         } catch (Exception e) {
             e.printStackTrace();
         }
