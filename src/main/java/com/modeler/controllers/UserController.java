@@ -23,12 +23,17 @@ import com.modeler.services.UserServices;
 @CrossOrigin
 @RequestMapping(value="/user")
 public class UserController {
+	
 	@Autowired
 	private UserServices userService;
+	
 	@Autowired
 	private JwtToken jwToken;
+	
 	@Autowired
     private JwtUserDetailsService jwtUserDetailsService;
+	
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody Usuario user){
 		try {
@@ -39,19 +44,24 @@ public class UserController {
 			return new ResponseEntity<>(user,HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> getAll(){
 		return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
 	}
+	
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest){
 		final UserDetails userDetails = jwtUserDetailsService
 
                 .loadUserByUsername(authenticationRequest.getUsername());
-
-        final String token = jwToken.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtResponse(token));
+		if(userDetails!=null && userDetails.getPassword().equals(new BCryptPasswordEncoder().encode(authenticationRequest.getPassword()))) {
+			final String token = jwToken.generateToken(userDetails);
+			return ResponseEntity.ok(new JwtResponse(token));
+		}else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 }
