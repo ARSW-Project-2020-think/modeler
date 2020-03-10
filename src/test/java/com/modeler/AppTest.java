@@ -2,6 +2,8 @@ package com.modeler;
 
 import static org.junit.Assert.assertTrue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.modeler.security.JwtRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,8 @@ public class AppTest {
     private UserRepository repo;
     @Autowired
     private MockMvc mock;
-
+    @Autowired
+    private ObjectMapper mapper;
     @Test
     public void testApp() {
 

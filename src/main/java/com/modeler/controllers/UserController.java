@@ -36,7 +36,7 @@ public class UserController {
 			userService.add(user);
 			return new ResponseEntity<>(user,HttpStatus.OK);
 		} catch (ModelerException e) {
-			return new ResponseEntity<>(user,HttpStatus.BAD_GATEWAY);
+			return new ResponseEntity<>(user,HttpStatus.BAD_REQUEST);
 		}
 	}
 	@RequestMapping(method=RequestMethod.GET)
