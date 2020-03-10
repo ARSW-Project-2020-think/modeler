@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -81,7 +82,9 @@ public class AppTest {
     @Test
     public void wouldBeConsultAnUser() {
         try {
-            repo.save(new Usuario("cv@hotmail.com", "CeVi", "jay123"));
+        	String pw = new BCryptPasswordEncoder().encode("jay123");
+        	System.out.println("ini "+pw);
+            repo.save(new Usuario("cv@hotmail.com", "CeVi", pw));
             String v = mapper.writeValueAsString(new JwtRequest("cv@hotmail.com", "jay123"));
             mock.perform(post("/user/login").content(v).contentType("application/json")).andExpect(status().is2xxSuccessful());
         } catch (Exception e) {
