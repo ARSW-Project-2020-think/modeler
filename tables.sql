@@ -7,7 +7,7 @@ create table proyecto(id int not null, nombre varchar(200) not null, publico boo
 --PKS
 alter table usuario  add constraint pk_usuario primary key(correo);
 
-alter table proyecto add constraint pk_proyecto primary key(id)
+alter table proyecto add constraint pk_proyecto primary key(id);
 
 
 --FKS
