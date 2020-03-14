@@ -1,9 +1,13 @@
 --Create table
 create table usuario(correo varchar(500) not null,username varchar(500) not null,password varchar(500) not null);
 
+create table proyecto(id int not null, nombre varchar(200) not null, publico boolean not null);
+
 
 --PKS
 alter table usuario  add constraint pk_usuario primary key(correo);
+
+alter table proyecto add constraint pk_proyecto primary key(id)
 
 
 --FKS
@@ -17,3 +21,4 @@ alter table usuario add constraint ck_usuario_correo check(correo like '%@%.%' a
 
 
 --drop table usuario;
+-- drop table proyecto;
