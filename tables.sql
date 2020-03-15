@@ -12,6 +12,9 @@ alter table proyecto add constraint pk_proyecto primary key(id);
 
 --FKS
 
+ALTER TABLE proyecto
+ADD CONSTRAINT fk_proyecto_usuario FOREIGN KEY (usuario) REFERENCES usuario(correo);
+
 
 --UKs
 alter table usuario  add constraint uk_usuario_username unique(username);
