@@ -1,7 +1,7 @@
 --Create table
 create table usuario(correo varchar(500) not null,username varchar(500) not null,password varchar(500) not null);
 
-create table proyecto(id int not null, nombre varchar(200) not null, publico boolean not null);
+create table proyecto(id int not null, nombre varchar(200) not null, publico boolean not null , usuario varchar(500) not null);
 
 
 --PKS
@@ -12,7 +12,7 @@ alter table proyecto add constraint pk_proyecto primary key(id);
 
 --FKS
 
-ALTER TABLE proyecto ADD CONSTRAINT fk_usuario FOREIGN KEY(usuario) REFERENCES usuario(correo);
+ALTER TABLE proyecto ADD CONSTRAINT fk_proyecto_usuario FOREIGN KEY(usuario) REFERENCES usuario(correo);
 
 
 --UKs
