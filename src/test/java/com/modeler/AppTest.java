@@ -23,7 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.modeler.model.Proyecto;
@@ -154,7 +156,50 @@ public class AppTest {
     	mock.perform(post("/projectapi/nombre1/project").content(json).contentType("application/json").header("Authorization", getToken("test2@mail.com"))).andExpect(status().isForbidden());
     
     }
+    @Test
+    public void shouldBeShowAPublicProjects() throws JsonProcessingException, Exception {
+    	System.out.println("PRUEBA 8 \n \n");
+    	Usuario u1 = new Usuario("test3@mail.com","people1",new BCryptPasswordEncoder().encode("test1"));
+    	Usuario u2 = new Usuario("test4@mail.com","people2",new BCryptPasswordEncoder().encode("test1")); 
+    	repo.save(u1);
+    	repo.save(u2);
+    	Proyecto p = new Proyecto();
+    	p.setAutor(u1);
+    	p.setNombre("App");
+    	p.setPublico(true);
+    	projects.save(p);
+    	mock.perform(get("/projectapi/people1/project").header("Authorization", getToken("test4@mail.com"))).andExpect(content().json(mapper.writeValueAsString(projects.getPublicProjectsByusuario("people1"))));	
+    }
     
+    public void notSouldBeShowAPrivateProjects() throws JsonProcessingException, Exception {
+    	System.out.println("PRUEBA 9 \n \n");
+    	Usuario u1 = new Usuario("test5@mail.com","people3",new BCryptPasswordEncoder().encode("test1"));
+    	Usuario u2 = new Usuario("test6@mail.com","people4",new BCryptPasswordEncoder().encode("test1")); 
+    	repo.save(u1);
+    	repo.save(u2);
+    	Proyecto p = new Proyecto();
+    	p.setAutor(u1);
+    	p.setNombre("App");
+    	p.setPublico(false);
+    	projects.save(p);
+    	mock.perform(get("/projectapi/people4/project").header("Authorization", getToken("test5@mail.com"))).andExpect(content().json("[]"));	
+    }
+    public void shouldBeShowAllMyProjects() throws JsonProcessingException, Exception {
+    	System.out.println("PRUEBA 10 \n \n");
+    	Usuario u2 = new Usuario("test7@mail.com","people5",new BCryptPasswordEncoder().encode("test1")); 
+    	repo.save(u2);
+    	Proyecto p = new Proyecto();
+    	p.setAutor(u2);
+    	p.setNombre("App");
+    	p.setPublico(false);
+    	projects.save(p);
+    	p = new Proyecto();
+    	p.setAutor(u2);
+    	p.setNombre("App2");
+    	p.setPublico(true);
+    	projects.save(p);
+    	mock.perform(get("/projectapi/people4/project").header("Authorization", getToken("test5@mail.com"))).andExpect(content().json(mapper.writeValueAsString(projects.getProjectsByusuario("people5"))));	
+    }
     
     private String getToken(String email) {
     	
