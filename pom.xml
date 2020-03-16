@@ -163,7 +163,7 @@
                         </goals>
                         <configuration>
                             <srcFiles>                                
-                                <srcFile>tables.sql</srcFile>                                
+                                <srcFile>SQL/tables.sql</srcFile>                                
                             </srcFiles>
                         </configuration>
                     </execution>

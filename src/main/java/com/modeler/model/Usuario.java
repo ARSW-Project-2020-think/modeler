@@ -1,8 +1,11 @@
 package com.modeler.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +18,11 @@ public class Usuario {
 	private String username;
 	@Column
 	private String password;
+	
+	@OneToMany(mappedBy="usuario")
+	private ArrayList<Proyecto> proyectos;
+	
+
 	public Usuario() {
 		
 	}
@@ -52,5 +60,12 @@ public class Usuario {
 		return new Usuario(correo,username,null);
 	}
 	
+	public ArrayList<Proyecto> getProyectos() {
+		return proyectos;
+	}
+	
+	public void setProyectos(ArrayList<Proyecto> proyectos) {
+		this.proyectos = proyectos;
+	}
 	
 }

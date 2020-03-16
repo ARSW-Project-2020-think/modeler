@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.modeler.exceptions.ModelerException;
@@ -15,7 +14,7 @@ public class UserServices {
 	@Autowired
 	private UserRepository repo;
 
-	public void add(Usuario user) throws ModelerException{
+	public void add(Usuario user) throws ModelerException {
 		String pattern = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@"+"[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$";;
 		Pattern pat = Pattern.compile(pattern);
 		boolean bol=!pat.matcher(user.getCorreo()).matches();
