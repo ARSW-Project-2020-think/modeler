@@ -1,6 +1,6 @@
 package com.modeler.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(mappedBy="usuario")
-	private ArrayList<Proyecto> proyectos;
+	private List<Proyecto> proyectos;
 	
 
 	public Usuario() {
@@ -60,11 +60,11 @@ public class Usuario {
 		return new Usuario(correo,username,null);
 	}
 	
-	public ArrayList<Proyecto> getProyectos() {
+	public List<Proyecto> getProyectos() {
 		return proyectos;
 	}
 	
-	public void setProyectos(ArrayList<Proyecto> proyectos) {
+	public void setProyectos(List<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 	}
 	

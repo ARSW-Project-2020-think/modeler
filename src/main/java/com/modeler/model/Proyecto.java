@@ -26,8 +26,7 @@ public class Proyecto {
 	private boolean publico;
 	
 	@ManyToOne
-	@Column
-	@JoinColumn(name = "correo")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
 	
