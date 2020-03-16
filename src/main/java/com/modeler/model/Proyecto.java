@@ -26,10 +26,9 @@ public class Proyecto {
 	@Column
 	private boolean publico;
 	
-	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "usuario")
-	private Usuario usuario;
+	private Usuario autor;
 	
 	public Proyecto() {
 		
@@ -41,7 +40,7 @@ public class Proyecto {
 	public Proyecto(String nombre, boolean publico, Usuario usuario) {
 		this.nombre = nombre;
 		this.publico = publico;
-		this.usuario = usuario;
+		this.autor = usuario;
 	}
 	public Proyecto(String nombre, boolean publico) {
 		this.nombre = nombre;
@@ -77,21 +76,17 @@ public class Proyecto {
 	public void setPublico(boolean publico) {
 		this.publico = publico;
 	}
-
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	
+	public Usuario getAutor() {
+		return autor;
+	}
+	public void setAutor(Usuario autor) {
+		this.autor = autor;
+	}
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Proyecto)) return false;
 		Proyecto p = ((Proyecto) obj);
-		return p.getNombre().equals(nombre) && p.getUsuario().equals(usuario);
+		return p.getNombre().equals(nombre) && p.getAutor().equals(autor);
 	}
 	
 	public String toString() {

@@ -35,14 +35,12 @@ public class ProjectController {
 			Proyecto p = new Proyecto();
 			p.setNombre(proyecto.getNombre());
 			p.setPublico(proyecto.getPublico());
-			p.setUsuario(u);
+			p.setAutor(u);
 			projectServices.add(p);
 		} catch (ModelerException e) {
 			//System.out.println(">>>>>>>>>> error"+e.getMessage());
 			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);
 		}
-		System.out.println("proyectos username: "+projectServices.getAll().get(0).getUsuario().getUsername());
-		System.out.println("proyectos proyecto: "+userServices.getUsuarioByUsername(username).getProyectos());
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

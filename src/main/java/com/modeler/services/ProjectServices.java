@@ -17,7 +17,7 @@ public class ProjectServices {
 	private ProjectRepository repositorio;
 	
 	public void add(Proyecto proyecto) throws ModelerException {
-		Usuario u = proyecto.getUsuario();
+		Usuario u = proyecto.getAutor();
 		for (Proyecto p: u.getProyectos()) {
 			if (p.getNombre().equals(proyecto.getNombre())) {
 				throw new ModelerException(ModelerException.nombreProyecto);

@@ -2,7 +2,6 @@ package com.modeler.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,7 +21,7 @@ public class Usuario {
 	@Column
 	private String password;
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="autor")
 	private List<Proyecto> proyectos;
 	
 
@@ -64,10 +63,12 @@ public class Usuario {
 	}
 	
 	public List<Proyecto> getProyectos() {
+		System.out.println("Obtiene proyectos");
 		return proyectos;
 	}
 	
 	public void setProyectos(List<Proyecto> proyectos) {
+		System.out.println("Actualiza proyectos");
 		this.proyectos = proyectos;
 	}
 	
