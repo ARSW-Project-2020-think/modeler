@@ -9,6 +9,8 @@ import com.modeler.model.Proyecto;
 
 public interface ProjectRepository extends JpaRepository<Proyecto, Integer>{
 	@Query(value = "SELECT * FROM proyecto p WHERE p.usuario=?1", nativeQuery = true)
-	public List<Proyecto> getProyectoByusuario(String usuario);
-
+	public List<Proyecto> getProjectsByusuario(String usuario);
+	
+	@Query(value = "SELECT * FROM proyecto p WHERE p.usuario=?1 and p.publico=true", nativeQuery = true)
+	public List<Proyecto> getPublicProjectsByusuario(String usuario);
 }

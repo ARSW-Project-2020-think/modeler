@@ -142,6 +142,20 @@ public class AppTest {
     }
     
     
+    @Test
+    public void shouldNotBeRegisterAnProyectOfDiferentUser() throws Exception {
+    	System.out.println("PRUEBA 7 \n \n");
+    	Usuario u = new Usuario("test1@mail.com","nombre1",new BCryptPasswordEncoder().encode("test1")); 
+    	repo.save(u);
+    	Usuario u2 = new Usuario("test2@mail.com","nombre2",new BCryptPasswordEncoder().encode("test1")); 
+    	repo.save(u2);
+    	Proyecto p = new Proyecto("nombre1",true);
+    	String json = mapper.writeValueAsString(p);
+    	mock.perform(post("/projectapi/nombre1/project").content(json).contentType("application/json").header("Authorization", getToken("test2@mail.com"))).andExpect(status().isForbidden());
+    
+    }
+    
+    
     private String getToken(String email) {
     	
     	final UserDetails userDetails = jwtUserDetailsService

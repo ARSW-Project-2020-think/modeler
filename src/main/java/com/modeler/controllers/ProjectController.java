@@ -3,6 +3,7 @@ package com.modeler.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,10 @@ public class ProjectController {
 	private UserServices userServices;
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
-	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto){
+	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto, Authentication auth){
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
 		Usuario u=null;
 		try {
 			u = userServices.getUsuarioByUsername(username);
@@ -44,7 +48,16 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll(){		
 		return new ResponseEntity<>(projectServices.getAll(),HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/{username}/project",method=RequestMethod.GET)
+	public ResponseEntity<?> getAllProjectsByUser(@PathVariable String username, Authentication auth){
+		if (!userServices.getUsuarioByUsername(username).getCorreo().equals(auth.getName())) {
+			return new ResponseEntity<>(projectServices.getPublicProjectsByusuario(username),HttpStatus.OK);
+		}
+		return new ResponseEntity<>(projectServices.getProjectsByusuario(username),HttpStatus.OK);
 	}
 }

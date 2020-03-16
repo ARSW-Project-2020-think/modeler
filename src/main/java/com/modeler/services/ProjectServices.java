@@ -18,7 +18,7 @@ public class ProjectServices {
 	
 	public void add(Proyecto proyecto) throws ModelerException {
 		Usuario u = proyecto.getAutor();
-		for (Proyecto p: repositorio.getProyectoByusuario(u.getCorreo())) {
+		for (Proyecto p: repositorio.getProjectsByusuario(u.getCorreo())) {
 			if (p.getNombre().equals(proyecto.getNombre())) {
 				throw new ModelerException(ModelerException.nombreProyecto);
 			}
@@ -27,9 +27,16 @@ public class ProjectServices {
 	}
 	
 	
-	
-	
 	public List<Proyecto> getAll() {
 		return repositorio.findAll();
+	}
+	
+	public List<Proyecto> getPublicProjectsByusuario(String username) {
+		return repositorio.getProjectsByusuario(username);
+	}
+	
+	
+	public List<Proyecto> getProjectsByusuario(String username) {
+		return repositorio.getProjectsByusuario(username);
 	}
 }
