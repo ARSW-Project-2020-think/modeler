@@ -1,6 +1,7 @@
 package com.modeler.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(mappedBy="autor")
-	private List<Proyecto> proyectos;
+	private Set<Proyecto> proyectos;
 	
 
 	public Usuario() {
@@ -62,12 +63,12 @@ public class Usuario {
 		return new Usuario(correo,username,null);
 	}
 	
-	public List<Proyecto> getProyectos() {
+	public Set<Proyecto> getProyectos() {
 		System.out.println("Obtiene proyectos");
 		return proyectos;
 	}
 	
-	public void setProyectos(List<Proyecto> proyectos) {
+	public void setProyectos(Set<Proyecto> proyectos) {
 		System.out.println("Actualiza proyectos");
 		this.proyectos = proyectos;
 	}

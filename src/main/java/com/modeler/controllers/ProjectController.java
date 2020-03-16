@@ -41,6 +41,9 @@ public class ProjectController {
 			//System.out.println(">>>>>>>>>> error"+e.getMessage());
 			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);
 		}
+		System.out.println("proyectos username: "+projectServices.getAll().get(0).getAutor().getUsername());
+		System.out.println(username);
+		System.out.println("proyectos proyecto: "+userServices.getUsuarioByUsername(username).getProyectos());
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

@@ -44,6 +44,5 @@ public class UserServices {
 
 	public void update(Usuario u) {
 		repo.save(u);
-		
 	}
 }
