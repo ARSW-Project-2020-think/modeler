@@ -3,6 +3,7 @@ package com.modeler.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,11 +46,10 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<?> getAll(){
-		return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
+	@RequestMapping(value="/data",method=RequestMethod.GET)
+	public ResponseEntity<?> getUser(Authentication aut){
+		return new ResponseEntity<>(userService.getUsuario(aut.getName()),HttpStatus.ACCEPTED);
 	}
-	
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest){
