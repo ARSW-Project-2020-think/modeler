@@ -2,6 +2,7 @@ package com.modeler.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,8 +25,9 @@ public class Proyecto {
 	
 	@Column
 	private boolean publico;
+	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
@@ -67,7 +69,7 @@ public class Proyecto {
 	}
 
 
-	public boolean isPublico() {
+	public boolean getPublico() {
 		return publico;
 	}
 
@@ -90,5 +92,9 @@ public class Proyecto {
 		if(!(obj instanceof Proyecto)) return false;
 		Proyecto p = ((Proyecto) obj);
 		return p.getNombre().equals(nombre) && p.getUsuario().equals(usuario);
+	}
+	
+	public String toString() {
+		return getNombre()+" "+getId()+" "+publico;
 	}
 }

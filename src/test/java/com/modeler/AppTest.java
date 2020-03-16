@@ -104,7 +104,7 @@ public class AppTest {
     public void wouldBeConsultAnUser() {
         try {
         	String pw = new BCryptPasswordEncoder().encode("jay123");
-        	System.out.println("ini "+pw);
+        	//System.out.println("ini "+pw);
             repo.save(new Usuario("cv@hotmail.com", "CeVi", pw));
             String v = mapper.writeValueAsString(new JwtRequest("cv@hotmail.com", "jay123"));
             mock.perform(post("/user/login").content(v).contentType("application/json")).andExpect(status().is2xxSuccessful());
@@ -118,7 +118,6 @@ public class AppTest {
     	repo.save(u);
     	Proyecto p = new Proyecto("appcontroller",true);
     	String json = mapper.writeValueAsString(p);
-    	p.setUsuario(u);
     	mock.perform(post("/projectapi/jaytestapp/project").content(json).contentType("application/json").header("Authorization", getToken("jay222@mail.com"))).andExpect(status().is2xxSuccessful());
     }
     private String getToken(String email) {

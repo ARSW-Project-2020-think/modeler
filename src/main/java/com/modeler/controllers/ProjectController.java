@@ -28,15 +28,21 @@ public class ProjectController {
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
 	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto){
+		Usuario u=null;
+		System.out.println("Ini "+proyecto.toString());
 		try {
-			Usuario u = userServices.getUsuarioByUsername(username);
-			System.out.println("user		"+u.toString());
-			u.addProyecto(proyecto);
-			userServices.update(u);
+			u = userServices.getUsuarioByUsername(username);
+			Proyecto p = new Proyecto();
+			p.setNombre(proyecto.getNombre());
+			p.setPublico(proyecto.getPublico());
+			p.setUsuario(u);
+			projectServices.add(p);
 		} catch (ModelerException e) {
-			System.out.println(">>>>>>>>>> error"+e.getMessage());
+			//System.out.println(">>>>>>>>>> error"+e.getMessage());
 			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);
 		}
+		System.out.println("proyectos username: "+projectServices.getAll().get(0).getUsuario().getUsername());
+		System.out.println("proyectos proyecto: "+userServices.getUsuarioByUsername(username).getProyectos());
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
