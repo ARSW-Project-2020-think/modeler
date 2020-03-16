@@ -21,7 +21,7 @@ import com.modeler.security.JwtUserDetailsService;
 import com.modeler.services.UserServices;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="*")
 @RequestMapping(value="/user")
 public class UserController {
 	
