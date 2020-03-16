@@ -29,7 +29,6 @@ public class ProjectController {
 	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
 	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto){
 		Usuario u=null;
-		System.out.println("Ini "+proyecto.toString());
 		try {
 			u = userServices.getUsuarioByUsername(username);
 			Proyecto p = new Proyecto();
@@ -39,11 +38,8 @@ public class ProjectController {
 			projectServices.add(p);
 		} catch (ModelerException e) {
 			//System.out.println(">>>>>>>>>> error"+e.getMessage());
-			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);
+			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("proyectos username: "+projectServices.getAll().get(0).getAutor().getUsername());
-		System.out.println(username);
-		System.out.println("proyectos proyecto: "+userServices.getUsuarioByUsername(username).getProyectos());
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

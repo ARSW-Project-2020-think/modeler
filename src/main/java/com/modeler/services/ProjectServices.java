@@ -18,13 +18,15 @@ public class ProjectServices {
 	
 	public void add(Proyecto proyecto) throws ModelerException {
 		Usuario u = proyecto.getAutor();
-		for (Proyecto p: u.getProyectos()) {
+		for (Proyecto p: repositorio.getProyectoByusuario(u.getCorreo())) {
 			if (p.getNombre().equals(proyecto.getNombre())) {
 				throw new ModelerException(ModelerException.nombreProyecto);
 			}
 		}		
 		repositorio.save(proyecto);
 	}
+	
+	
 	
 	
 	public List<Proyecto> getAll() {
