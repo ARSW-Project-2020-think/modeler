@@ -118,8 +118,8 @@ public class AppTest {
     	repo.save(u);
     	Proyecto p = new Proyecto("appcontroller",true);
     	String json = mapper.writeValueAsString(p);
+    	p.setUsuario(u);
     	mock.perform(post("/projectapi/jaytestapp/project").content(json).contentType("application/json").header("Authorization", getToken("jay222@mail.com"))).andExpect(status().is2xxSuccessful());
-    	
     }
     private String getToken(String email) {
     	final UserDetails userDetails = jwtUserDetailsService

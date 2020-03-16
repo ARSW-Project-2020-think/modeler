@@ -71,7 +71,7 @@ public class Usuario {
 	}
 	
 	public void addProyecto(Proyecto proyecto) throws ModelerException {
-		for(Proyecto p:proyectos) {
+		for(Proyecto p:getProyectos()) {
 			if(p.equals(proyecto)) throw new ModelerException(ModelerException.nombreProyecto);
 		}
 		proyectos.add(proyecto);
