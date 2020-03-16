@@ -32,6 +32,7 @@ public class ProjectController {
 			Usuario u = userServices.getUsuarioByUsername(username);
 			System.out.println("user		"+u.toString());
 			u.addProyecto(proyecto);
+			userServices.update(u);
 		} catch (ModelerException e) {
 			System.out.println(">>>>>>>>>> error"+e.getMessage());
 			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);

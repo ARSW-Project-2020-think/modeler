@@ -41,4 +41,9 @@ public class UserServices {
 	public Usuario getUsuarioByUsername(String username) {
 		return repo.getUsuarioByUsername(username);
 	}
+
+	public void update(Usuario u) {
+		repo.save(u);
+		
+	}
 }
