@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.modeler.exceptions.ModelerException;
+
 @Entity
 @Table
 public class Usuario {
@@ -67,5 +69,17 @@ public class Usuario {
 	public void setProyectos(List<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 	}
+	
+	public void addProyecto(Proyecto proyecto) throws ModelerException {
+		for(Proyecto p:proyectos) {
+			if(p.equals(proyecto)) throw new ModelerException(ModelerException.nombreProyecto);
+		}
+		proyectos.add(proyecto);
+	}
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Usuario)) return false;
+		return ((Usuario) obj).getCorreo().equals(correo);
+	}
+
 	
 }

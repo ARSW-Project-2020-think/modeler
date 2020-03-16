@@ -56,8 +56,8 @@ public class UserController {
 		final UserDetails userDetails = jwtUserDetailsService
 
                 .loadUserByUsername(authenticationRequest.getUsername());
-		System.out.println(userDetails.getPassword());
-		System.out.println(new BCryptPasswordEncoder().encode(authenticationRequest.getPassword())+" "+authenticationRequest.getPassword());
+		//System.out.println(userDetails.getPassword());
+		//System.out.println(new BCryptPasswordEncoder().encode(authenticationRequest.getPassword())+" "+authenticationRequest.getPassword());
 		if(userDetails!=null && new BCryptPasswordEncoder().matches(authenticationRequest.getPassword(), userDetails.getPassword())) {
 			final String token = jwToken.generateToken(userDetails);
 			return ResponseEntity.ok(new JwtResponse(token));

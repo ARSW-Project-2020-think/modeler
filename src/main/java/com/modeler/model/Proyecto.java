@@ -9,11 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Proyecto {
-	
-	
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,18 +24,28 @@ public class Proyecto {
 	
 	@Column
 	private boolean publico;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
-	
+	public Proyecto() {
+		
+	}
 	public Proyecto(int id, String nombre, boolean publico, Usuario usuario) {
+		this(nombre,publico,usuario);
 		this.id = id;
+	}
+	public Proyecto(String nombre, boolean publico, Usuario usuario) {
 		this.nombre = nombre;
 		this.publico = publico;
 		this.usuario = usuario;
 	}
+	public Proyecto(String nombre, boolean publico) {
+		this.nombre = nombre;
+		this.publico = publico;
+	}
+	
 	
 	public int getId() {
 		return id;
@@ -74,5 +84,11 @@ public class Proyecto {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Proyecto)) return false;
+		Proyecto p = ((Proyecto) obj);
+		return p.getNombre().equals(nombre) && p.getUsuario().equals(usuario);
 	}
 }

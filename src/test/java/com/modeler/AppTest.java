@@ -1,14 +1,21 @@
 package com.modeler;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modeler.security.JwtRequest;
+import com.modeler.security.JwtToken;
+import com.modeler.security.JwtUserDetailsService;
+import com.modeler.services.UserServices;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,7 +24,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
+import com.modeler.model.Proyecto;
 import com.modeler.model.Usuario;
+import com.modeler.repositories.ProjectRepository;
 import com.modeler.repositories.UserRepository;
 
 /**
@@ -36,9 +47,19 @@ public class AppTest {
     @Autowired
     private UserRepository repo;
     @Autowired
+    private ProjectRepository projects;
+    @Autowired
     private MockMvc mock;
     @Autowired
     private ObjectMapper mapper;
+    
+    @Autowired
+	private UserServices userService;
+	@Autowired
+	private JwtToken jwToken;
+	@Autowired
+    private JwtUserDetailsService jwtUserDetailsService;
+    
     @Test
     public void testApp() {
 
@@ -90,5 +111,20 @@ public class AppTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void wouldBeRegisterAnProyect() throws Exception {
+    	Usuario u = new Usuario("jay222@mail.com","jaytestapp",new BCryptPasswordEncoder().encode("jay123")); 
+    	repo.save(u);
+    	Proyecto p = new Proyecto("appcontroller",true);
+    	String json = mapper.writeValueAsString(p);
+    	mock.perform(post("/projectapi/jaytestapp/project").content(json).contentType("application/json").header("Authorization", getToken("jay222@mail.com"))).andExpect(status().is2xxSuccessful());
+    	
+    }
+    private String getToken(String email) {
+    	final UserDetails userDetails = jwtUserDetailsService
+
+                .loadUserByUsername(email);
+    	return jwToken.generateToken(userDetails);
     }
 }

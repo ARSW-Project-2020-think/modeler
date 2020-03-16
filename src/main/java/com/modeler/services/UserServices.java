@@ -37,4 +37,8 @@ public class UserServices {
 	public List<Usuario> getAll() {
 		return repo.findAll();
 	}
+
+	public Usuario getUsuarioByUsername(String username) {
+		return repo.getUsuarioByUsername(username);
+	}
 }

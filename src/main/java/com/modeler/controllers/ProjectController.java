@@ -3,6 +3,8 @@ package com.modeler.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,23 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Proyecto;
+import com.modeler.model.Usuario;
 import com.modeler.services.ProjectServices;
+import com.modeler.services.UserServices;
 
 @RestController
-@RequestMapping(value="/proyecto")
+@CrossOrigin
+@RequestMapping(value="/projectapi")
 public class ProjectController {
 	
 	@Autowired
 	private ProjectServices projectServices;
+	@Autowired
+	private UserServices userServices;
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> addProject(@RequestBody Proyecto proyecto){
+	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
+	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto){
 		try {
-			projectServices.add(proyecto);
+			Usuario u = userServices.getUsuarioByUsername(username);
+			System.out.println("user		"+u.toString());
+			u.addProyecto(proyecto);
 		} catch (ModelerException e) {
-			return new ResponseEntity<>("Error, No project add",HttpStatus.NOT_FOUND);
+			System.out.println(">>>>>>>>>> error"+e.getMessage());
+			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_GATEWAY);
 		}
-		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
