@@ -10,4 +10,4 @@ z = post("https://class-modeler.herokuapp.com/user/login",data='{"username":"jay
 print(z)
 w = z.json()
 print(w)
-print(get("https://class-modeler.herokuapp.com/user/data",headers={"Authorization":w["token"]}).text)
+print(get("https://class-modeler.herokuapp.com/user/data",headers={"Authorization":w["token"]," Access-Control-Allow-Origin":"*"}).text)
