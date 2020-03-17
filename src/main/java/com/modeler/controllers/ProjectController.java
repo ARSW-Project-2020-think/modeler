@@ -18,7 +18,7 @@ import com.modeler.services.ProjectServices;
 import com.modeler.services.UserServices;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="*")
 @RequestMapping(value="/projectapi")
 public class ProjectController {
 	
