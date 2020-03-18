@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.modeler.exceptions.ModelerException;
 
 @Entity
@@ -21,7 +22,7 @@ public class Usuario {
 	private String username;
 	@Column
 	private String password;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
 	
