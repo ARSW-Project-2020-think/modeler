@@ -1,7 +1,7 @@
 --Create table
 create table usuario(correo varchar(500) not null,username varchar(500) not null,password varchar(500) not null);
 
-create table proyecto(id int not null, nombre varchar(200) not null, publico boolean not null , usuario varchar(500) not null);
+create table proyecto(id serial not null, nombre varchar(200) not null, publico boolean not null , usuario varchar(500) not null);
 
 
 --PKS
