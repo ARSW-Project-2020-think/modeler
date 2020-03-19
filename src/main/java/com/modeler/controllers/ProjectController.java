@@ -55,13 +55,14 @@ public class ProjectController {
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.GET)
 	public ResponseEntity<?> getAllProjectsByUser(@PathVariable String username, Authentication auth){
-		if (!userServices.getUsuarioByUsername(username).getCorreo().equals(auth.getName())) {
+		Usuario u = userServices.getUsuarioByUsername(username);
+		if (!u.getCorreo().equals(auth.getName())) {
 			System.out.println("entro 1");
 			System.out.println(projectServices.getPublicProjectsByusuario(username));
 			return new ResponseEntity<>(projectServices.getPublicProjectsByusuario(username),HttpStatus.OK);
 		}
 		System.out.println("entro 2");
-		System.out.println(projectServices.getProjectsByusuario(username));
-		return new ResponseEntity<>(projectServices.getProjectsByusuario(username),HttpStatus.OK);
+		System.out.println(u.getProyectos());
+		return new ResponseEntity<>(u.getProyectos(),HttpStatus.OK);
 	}
 }
