@@ -5,6 +5,9 @@ public class ModelerException extends Exception{
 	public static String noEsUnCorreoValido="Revise el correo enviado";
 	public static String nombreDeUsuarioInvalido="Ya esta en uso este nombre de usuario";
 	public static String nombreProyecto = "No puede crear otro proyecto con el mismo nombre";
+	public static String modeloInvalido = "Ya existe un un modelo con este nombre";
+	public static String claseInvalida = "Ya existe alguna clase con este nombre";
+	public static String claseInexistente ="No existe una clase con este nombre";
 
 	public ModelerException(String ms) {
 		super(ms);

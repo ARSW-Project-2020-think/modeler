@@ -68,4 +68,17 @@ public class Modelo {
 		this.version = version;
 	}
 	
+	public boolean equals(Object ob) {
+		if(!(ob instanceof Modelo)) return false;
+		Modelo m = (Modelo) ob;
+		return m.getId()==id;
+	}
+
+	public Rectangulo getRectangulo(String nombreRectangulo) {
+		for(Rectangulo r: rectangulos) {
+			if(r.getNombre().equals(nombreRectangulo)) return r;
+		}
+		return null;
+	}
+	
 }

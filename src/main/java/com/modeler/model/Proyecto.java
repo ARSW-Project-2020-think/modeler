@@ -97,10 +97,28 @@ public class Proyecto {
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Proyecto)) return false;
 		Proyecto p = ((Proyecto) obj);
-		return p.getNombre().equals(nombre) && p.getAutor().equals(autor);
+		return p.getId()==id;
 	}
 	
 	public String toString() {
 		return getNombre()+" "+getId()+" "+publico;
+	}
+	public Version getVersion(int version) {
+		for(Version v:versiones) {
+			if(v.getNumero()==version) return v;
+		}
+		return null;
+	}
+	public Modelo getModelo(int version, String nombreModelo) {
+		Version v = getVersion(version);
+		return v.getModelo(nombreModelo);
+	}
+	public List<Modelo> getModelos(int version) {
+		Version v = getVersion(version);
+		return v.getModelos();
+	}
+	public Rectangulo getRectangulo(int version, String nombreModelo, String nombreRectangulo) {
+		Version v = getVersion(version);
+		return v.getRectangulo(nombreModelo,nombreRectangulo);
 	}
 }

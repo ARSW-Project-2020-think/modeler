@@ -1,7 +1,5 @@
 package com.modeler.controllers;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.modeler.exceptions.ModelerException;
+import com.modeler.model.Modelo;
 import com.modeler.model.Proyecto;
+import com.modeler.model.Rectangulo;
 import com.modeler.model.Usuario;
 import com.modeler.model.Version;
+import com.modeler.services.ModelServices;
 import com.modeler.services.ProjectServices;
+import com.modeler.services.RectangleServices;
 import com.modeler.services.UserServices;
 import com.modeler.services.VersionServices;
 
@@ -32,6 +34,10 @@ public class ProjectController {
 	private UserServices userServices;
 	@Autowired
 	private VersionServices versionServices;
+	@Autowired
+	private ModelServices modelServices;
+	@Autowired
+	private RectangleServices rectangleServices;
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
 	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto, Authentication auth){
@@ -76,4 +82,63 @@ public class ProjectController {
 		System.out.println(u.getProyectos());
 		return new ResponseEntity<>(u.getProyectos(),HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo", method = RequestMethod.POST)
+	public ResponseEntity<?> saveModel(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo){
+		try {
+			Usuario u = userServices.getUsuarioByUsername(username);
+			Version v = u.getVersion(project,version);
+			Modelo m = new Modelo(modelo.getNombre(),v);
+			modelServices.save(m);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo",method=RequestMethod.GET)
+	public ResponseEntity<?> getModelos(@PathVariable String username,@PathVariable String project,@PathVariable int version){
+		
+		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getModelos(project,version),HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}",method=RequestMethod.GET)
+	public ResponseEntity<?> getModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname){
+		
+		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getModelo(project,version,modelname),
+				HttpStatus.ACCEPTED);
+	}
+	
+	
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}/rectangle",method=RequestMethod.POST)
+	public ResponseEntity<?> saveRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo){
+		try {
+			Modelo m = userServices.getUsuarioByUsername(username).getModelo(project,version,modelname);
+			
+			Rectangulo r = new Rectangulo(rectangulo.getNombre(),rectangulo.getX(),rectangulo.getY(),
+					rectangulo.getAncho(),rectangulo.getAlto(),m);
+			rectangleServices.save(r);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}/rectangle",method=RequestMethod.PUT)
+	public ResponseEntity<?> updateRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo){
+		try {
+			Rectangulo m = userServices.getUsuarioByUsername(username).getRectangulo(project,version,modelname,rectangulo.getNombre());
+			m.setX(rectangulo.getX());
+			m.setY(rectangulo.getY());
+			m.setAncho(rectangulo.getAncho());
+			m.setAlto(rectangulo.getAlto());
+			rectangleServices.update(m);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }

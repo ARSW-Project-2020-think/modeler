@@ -49,6 +49,10 @@ public class Rectangulo {
 		this.ancho = ancho;
 		this.alto = alto;
 	}
+	public Rectangulo(String nombre,int x,int y,int ancho,int alto,Modelo modelo) {
+		this(nombre,x,y,ancho,alto);
+		this.modelo = modelo;
+	}
 
 	public int getId() {
 		return id;
@@ -104,5 +108,10 @@ public class Rectangulo {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+	
+	public boolean equals(Object ob) {
+		if(!(ob instanceof Rectangulo)) return false;
+		return ((Rectangulo) ob).getId() ==id;
 	}
 }

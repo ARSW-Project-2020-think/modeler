@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -88,6 +89,28 @@ public class Usuario {
 			if(p.getNombre().equals(nombre)) return p;
 		}
 		return null;
+	}
+	private Proyecto getProyecto(String nombreProyecto) {
+		for(Proyecto p:proyectos) {
+			if(p.getNombre().equals(nombreProyecto));
+		}
+		return null;
+	}
+	public Version getVersion(String nombreProyecto, int version) {
+		Proyecto proyecto = getProyecto(nombreProyecto);
+		return proyecto.getVersion(version);
+	}
+	public Modelo getModelo(String nombreProyecto, int version, String nombreModelo) {
+		Proyecto proyecto = getProyecto(nombreProyecto);
+		return proyecto.getModelo(version,nombreModelo);
+	}
+	public List<Modelo> getModelos(String nombreProyecto, int version) {
+		Proyecto proyecto = getProyecto(nombreProyecto);
+		return proyecto.getModelos(version);
+	}
+	public Rectangulo getRectangulo(String nombreProyecto, int version, String nombreModelo, String nombreRectangulo) {
+		Proyecto p = getProyecto(nombreProyecto);
+		return p.getRectangulo(version,nombreModelo,nombreRectangulo);
 	}
 
 	

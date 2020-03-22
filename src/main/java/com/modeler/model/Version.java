@@ -62,5 +62,30 @@ public class Version {
 		this.proyecto = proyecto;
 	}
 	
+	public boolean equals(Object ob) {
+		if(!(ob instanceof Version)) return false;
+		Version v = (Version) ob;
+		return v.getId()==id;
+	}
+	
+	public List<Modelo> getModelos() {
+		return modelos;
+	}
+
+	public void setModelos(List<Modelo> modelos) {
+		this.modelos = modelos;
+	}
+	
+	public Modelo getModelo(String nombreModelo) {
+		for(Modelo m:modelos) {
+			if(m.getNombre().equals(nombreModelo)) return m;
+		}
+		return null;
+	}
+
+	public Rectangulo getRectangulo(String nombreModelo, String nombreRectangulo) {
+		Modelo m = getModelo(nombreModelo);
+		return m.getRectangulo(nombreRectangulo);
+	}
 	
 }
