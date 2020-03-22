@@ -1,5 +1,7 @@
 package com.modeler.controllers;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Proyecto;
 import com.modeler.model.Usuario;
+import com.modeler.model.Version;
 import com.modeler.services.ProjectServices;
 import com.modeler.services.UserServices;
 
@@ -39,6 +42,9 @@ public class ProjectController {
 			p.setNombre(proyecto.getNombre());
 			p.setPublico(proyecto.getPublico());
 			p.setAutor(u);
+			ArrayList<Version> versiones = new ArrayList<>();
+			versiones.add(new Version(1));
+			p.setVersiones(versiones);
 			projectServices.add(p);
 		} catch (ModelerException e) {
 			//System.out.println(">>>>>>>>>> error"+e.getMessage());

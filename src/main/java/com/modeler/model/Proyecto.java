@@ -1,5 +1,7 @@
 package com.modeler.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +32,8 @@ public class Proyecto {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private Usuario autor;
+	@OneToMany(mappedBy="proyecto")
+	private List<Version> versiones;
 	
 	public Proyecto() {
 		
@@ -82,6 +87,12 @@ public class Proyecto {
 	}
 	public void setAutor(Usuario autor) {
 		this.autor = autor;
+	}
+	public List<Version> getVersiones() {
+		return versiones;
+	}
+	public void setVersiones(List<Version> versiones) {
+		this.versiones = versiones;
 	}
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Proyecto)) return false;
