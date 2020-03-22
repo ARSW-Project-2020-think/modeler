@@ -19,6 +19,7 @@ import com.modeler.model.Usuario;
 import com.modeler.model.Version;
 import com.modeler.services.ProjectServices;
 import com.modeler.services.UserServices;
+import com.modeler.services.VersionServices;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -29,6 +30,8 @@ public class ProjectController {
 	private ProjectServices projectServices;
 	@Autowired
 	private UserServices userServices;
+	@Autowired
+	private VersionServices versionServices;
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.POST)
 	public ResponseEntity<?> addProject(@PathVariable String username,@RequestBody Proyecto proyecto, Authentication auth){
@@ -42,10 +45,12 @@ public class ProjectController {
 			p.setNombre(proyecto.getNombre());
 			p.setPublico(proyecto.getPublico());
 			p.setAutor(u);
-			ArrayList<Version> versiones = new ArrayList<>();
-			versiones.add(new Version(1));
-			p.setVersiones(versiones);
 			projectServices.add(p);
+			Version v = new Version(1);
+			u = userServices.getUsuarioByUsername(username);
+			v.setProyecto(u.getProyectoByName(proyecto.getNombre()));
+			versionServices.save(v);
+			
 		} catch (ModelerException e) {
 			//System.out.println(">>>>>>>>>> error"+e.getMessage());
 			return new ResponseEntity<>("Error, No project add",HttpStatus.BAD_REQUEST);

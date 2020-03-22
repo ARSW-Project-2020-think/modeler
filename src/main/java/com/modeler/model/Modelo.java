@@ -12,55 +12,60 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class Version {
+public class Modelo {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@Column
-	private int numero;
+	private String nombre;
+	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_proyecto")
-	private Proyecto proyecto;
-	@OneToMany(mappedBy="version")
-	private List<Modelo> modelos;
+	@JoinColumn(name="id_version")
+	private Version version;
 	
-	public Version() {
+	
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="modelo")
+	private List<Rectangulo> rectangulos;
+	
+	public Modelo() {
 		
 	}
 	
-	public Version(int numero) {
-		this.numero = numero;
+	public Modelo(String nombre,Version version) {
+		this.nombre = nombre;
+		this.version = version;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public Version getVersion() {
+		return version;
+	}
+	
+	public void setVersion(Version version) {
+		this.version = version;
+	}
 	
 }

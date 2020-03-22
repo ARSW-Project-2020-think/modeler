@@ -1,8 +1,5 @@
 package com.modeler;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modeler.security.JwtRequest;
@@ -24,10 +21,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.modeler.model.Proyecto;
 import com.modeler.model.Usuario;
 import com.modeler.repositories.ProjectRepository;

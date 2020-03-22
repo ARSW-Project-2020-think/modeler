@@ -1,6 +1,5 @@
 package com.modeler.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -83,6 +82,12 @@ public class Usuario {
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Usuario)) return false;
 		return ((Usuario) obj).getCorreo().equals(correo);
+	}
+	public Proyecto getProyectoByName(String nombre) {
+		for(Proyecto p:proyectos) {
+			if(p.getNombre().equals(nombre)) return p;
+		}
+		return null;
 	}
 
 	

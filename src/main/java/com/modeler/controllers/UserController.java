@@ -67,7 +67,7 @@ public class UserController {
 		}
 	}
 	@RequestMapping(value="/{username}/disp",method=RequestMethod.GET)
-	public boolean validUsername(@PathVariable String username) {
-		return userService.getUsuarioByUsername(username)==null;
+	public ResponseEntity<?> validUsername(@PathVariable String username) {
+		return new ResponseEntity<>(userService.getUsuarioByUsername(username)==null,HttpStatus.ACCEPTED);
 	}
 }
