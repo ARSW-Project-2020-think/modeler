@@ -89,7 +89,7 @@ public class ProjectController {
 		try {
 			Usuario u = userServices.getUsuarioByUsername(username);
 			Version v = u.getVersion(project,version);
-			Modelo m = new Modelo(modelo.getNombre(),v);
+			Modelo m = new Modelo(modelo.getNombre(),v,modelo.getTipo());
 			modelServices.save(m);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (ModelerException e) {

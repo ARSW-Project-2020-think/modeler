@@ -35,6 +35,9 @@ public class Modelo {
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="modelo")
 	private List<Rectangulo> rectangulos;
 	
+	@Column
+	private String tipo;
+	
 	public Modelo() {
 		
 	}
@@ -44,6 +47,11 @@ public class Modelo {
 		this.version = version;
 	}
 	
+	public Modelo(String nombre, Version version, String tipo) {
+		this(nombre,version);
+		this.tipo = tipo;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -80,5 +88,22 @@ public class Modelo {
 		}
 		return null;
 	}
+
+	public List<Rectangulo> getRectangulos() {
+		return rectangulos;
+	}
+
+	public void setRectangulos(List<Rectangulo> rectangulos) {
+		this.rectangulos = rectangulos;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 }
