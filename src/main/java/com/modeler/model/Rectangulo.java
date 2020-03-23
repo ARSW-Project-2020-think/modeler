@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Rectangulo {
@@ -33,7 +35,7 @@ public class Rectangulo {
 	
 	@Column
 	private int alto;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_modelo")
 	private Modelo modelo;
