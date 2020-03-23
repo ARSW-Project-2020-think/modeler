@@ -16,6 +16,7 @@ public class RectangleServices {
 		for(Rectangulo r: repo.getRectanglesByName(rectangulo.getNombre())) {
 			if(rectangulo.getModelo().equals(r.getModelo())) throw new ModelerException(ModelerException.claseInvalida);
 		}
+		repo.save(rectangulo);
 	}
 
 	public void update(Rectangulo m) throws ModelerException {
