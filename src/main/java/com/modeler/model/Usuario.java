@@ -92,7 +92,7 @@ public class Usuario {
 	}
 	private Proyecto getProyecto(String nombreProyecto) {
 		for(Proyecto p:proyectos) {
-			if(p.getNombre().equals(nombreProyecto));
+			if(p.getNombre().equals(nombreProyecto)) return p;
 		}
 		return null;
 	}
@@ -106,6 +106,7 @@ public class Usuario {
 	}
 	public List<Modelo> getModelos(String nombreProyecto, int version) {
 		Proyecto proyecto = getProyecto(nombreProyecto);
+		System.out.println(proyectos);
 		return proyecto.getModelos(version);
 	}
 	public Rectangulo getRectangulo(String nombreProyecto, int version, String nombreModelo, String nombreRectangulo) {
