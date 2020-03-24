@@ -154,3 +154,44 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 ## Taiga
 
 [Link](https://tree.taiga.io/project/jeisonsr43-modeler/timeline)
+
+## Funcionamiento de la Aplicación
+
+Al entrar a la aplicación lo primero que vemos es la opción de iniciar sesión, que da la posibilidad de reegistrarse en caso de que no se tenga una cuenta creada.
+
+![img](img/Aplicacion/app1.png)
+
+![img](img/Aplicacion/app2.png)
+
+Una vez se haya iniciado sesión, podemos observar que la página principal tiene una barra de navegación lateral a la izquierda que le permitirá al usuario desplazarse a las diferentes funcionalidades de la aplicación.
+
+**"Mis proyectos"** muestra todos los proyectos públicos y privados del usuario que inició la sesión.
+
+Nos da la opción de **"ver"**, que será descrita **posteriormente**.
+
+![img](img/Aplicacion/app3.png)
+
+**"Registrar Proyecto"** nos muestra una vista agradable al usuario en la que puede elegir el nombre del proyecto y su visibilidad **(público o privado)**.
+
+![img](img/Aplicacion/app4.png)
+
+Una vez le demos en la opción **"ver"** descrita **anteriormente** o se registre un nuevo proyecto, automáticamente nos redireccionará a la página del proyecto, en la cual se puede ver los diagramas existentes y crear nuevos diagramas.
+
+Nos da la opción de **"ver"**, que será descrita **posteriormente**.
+
+![img](img/Aplicacion/app5.png)
+
+Al darle click en **"Nuevo Diagrama"** le da la posibilidad al usuario de crear un nuevo diagrama de clases o un nuevo diagrama de casos de uso con su respectivo nombre.
+
+![img](img/Aplicacion/app6.png)
+
+Una vez le demos en la opción **"ver"** descrita anteriormente o se registre un nuevo diagrama, automáticamente nos redireccionará a la página del modelo, dónde podemos agregar nuevas clases con su respectivo nombre.
+
+![img](img/Aplicacion/app7.png)
+
+Una vez hayamos escogido el nombre apropiado para nuestra clase, sólo basta con dar **click** en el lugar deseado dónde queremos que aparezca el rectángulo y listo. 
+
+**A crear nuestro diagrama!**
+
+![img](img/Aplicacion/app8.png)
+
