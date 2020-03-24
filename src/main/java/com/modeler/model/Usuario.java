@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -80,35 +81,42 @@ public class Usuario {
 		}
 		proyectos.add(proyecto);
 	}
+	
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Usuario)) return false;
 		return ((Usuario) obj).getCorreo().equals(correo);
 	}
+	
 	public Proyecto getProyectoByName(String nombre) {
 		for(Proyecto p:proyectos) {
 			if(p.getNombre().equals(nombre)) return p;
 		}
 		return null;
 	}
+	
 	private Proyecto getProyecto(String nombreProyecto) {
 		for(Proyecto p:proyectos) {
 			if(p.getNombre().equals(nombreProyecto)) return p;
 		}
 		return null;
 	}
+	
 	public Version getVersion(String nombreProyecto, int version) {
 		Proyecto proyecto = getProyecto(nombreProyecto);
 		return proyecto.getVersion(version);
 	}
+	
 	public Modelo getModelo(String nombreProyecto, int version, String nombreModelo) {
 		Proyecto proyecto = getProyecto(nombreProyecto);
 		return proyecto.getModelo(version,nombreModelo);
 	}
+	
 	public List<Modelo> getModelos(String nombreProyecto, int version) {
 		Proyecto proyecto = getProyecto(nombreProyecto);
 		System.out.println(proyectos);
 		return proyecto.getModelos(version);
 	}
+	
 	public Rectangulo getRectangulo(String nombreProyecto, int version, String nombreModelo, String nombreRectangulo) {
 		Proyecto p = getProyecto(nombreProyecto);
 		return p.getRectangulo(version,nombreModelo,nombreRectangulo);

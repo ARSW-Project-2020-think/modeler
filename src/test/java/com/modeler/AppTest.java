@@ -20,10 +20,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Set;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import com.modeler.model.Modelo;
 import com.modeler.model.Proyecto;
+import com.modeler.model.Rectangulo;
 import com.modeler.model.Usuario;
 import com.modeler.model.Version;
 import com.modeler.repositories.ModelRepository;
@@ -36,6 +40,10 @@ import com.modeler.repositories.UserRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(properties = {
+		/*"jdbc.driverClassName=org.h2.Driver",
+		"jdbc.url=jdbc:h2:mem:db;db_CLOSE_DELAY=-1",
+		"jdbc.username=sa",
+		"jdbc.password=sa",*/
         "spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.H2Dialect",
         "spring.datasource.url=jdbc:h2:mem:test",
         "spring.datasource.username=sa",
@@ -170,6 +178,7 @@ public class AppTest {
     	mock.perform(get("/projectapi/people1/project").header("Authorization", getToken("test4@mail.com"))).andExpect(content().json(mapper.writeValueAsString(projects.getPublicProjectsByusuario("people1"))));	
     }
     
+    @Test
     public void notSouldBeShowAPrivateProjects() throws JsonProcessingException, Exception {
     	System.out.println("PRUEBA 9 \n \n");
     	Usuario u1 = new Usuario("test5@mail.com","people3",new BCryptPasswordEncoder().encode("test1"));
@@ -207,27 +216,89 @@ public class AppTest {
                 .loadUserByUsername(email);
     	return jwToken.generateToken(userDetails);
     }
-    /**@Test
+            
+    
+   @Test
+    public void shouldBeRegisterAnModel() {
+    	System.out.println("PRUEBA 11 \n \n");
+    	try { 
+    		Usuario u = new Usuario("modeloPrueba@mail.com","pruebaModelo",new BCryptPasswordEncoder().encode("test1")); 
+        	repo.save(u);
+        	Proyecto p = new Proyecto("pruebaModel",true,u);
+        	String json = mapper.writeValueAsString(p);
+        	mock.perform(post("/projectapi/pruebaModelo/project").content(json).contentType("application/json").header("Authorization", getToken("modeloPrueba@mail.com"))).andExpect(status().is2xxSuccessful());
+        	Modelo m = new Modelo("pruebaModel",null);
+        	json = mapper.writeValueAsString(m);
+        	mock.perform(post("/projectapi/pruebaModelo/project/pruebaModel/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("modeloPrueba@mail.com"))).andExpect(status().is2xxSuccessful());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	    	
+    }
+    
+    @Test
     public void souldntBeRegisterAnModelWithRepeatName() {
+    	System.out.println("PRUEBA 12 \n \n");
     	try {
     		Usuario u = new Usuario("test10@mail.com","people20",new BCryptPasswordEncoder().encode("test1")); 
         	repo.save(u);
         	Proyecto p = new Proyecto("me",true,u);
-        	projects.save(p);
-        	u = repo.findOne("test10@mail.com");
-        	System.out.println("usuario "+mapper.writeValueAsString(u));
-        	Version v = u.getVersion("me", 1);
-        	Modelo m = new Modelo("Jay",v);
-        	models.save(m);
-        	Modelo m1 = new Modelo();
-        	m1.setNombre("Jay");
-        	String json = mapper.writeValueAsString(m1);
-			mock.perform(post("/projectapi/people20/project/me/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("test10@mail.com"))).andExpect(status().is4xxClientError());
+        	String json = mapper.writeValueAsString(p);
+        	mock.perform(post("/projectapi/people20/project").content(json).contentType("application/json").header("Authorization", getToken("test10@mail.com"))).andExpect(status().is2xxSuccessful());
+        	Modelo m = new Modelo("Calc",null);
+        	json = mapper.writeValueAsString(m);
+        	mock.perform(post("/projectapi/people20/project/me/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("test10@mail.com"))).andExpect(status().is2xxSuccessful());
+        	mock.perform(post("/projectapi/people20/project/me/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("test10@mail.com"))).andExpect(status().is4xxClientError());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	    	
+    }
+    
+    
+    @Test
+    public void shouldBeRegisterRectangle() {
+    	System.out.println("PRUEBA 13 \n \n");
+    	try {
+	    	Usuario u = new Usuario("pruebaRectangulo@mail.com","UsuarioR",new BCryptPasswordEncoder().encode("test1"));  
+        	repo.save(u);
+        	Proyecto p = new Proyecto("proyectoR",true,u);
+        	String json = mapper.writeValueAsString(p);
+        	mock.perform(post("/projectapi/UsuarioR/project").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo@mail.com"))).andExpect(status().is2xxSuccessful());
+        	Modelo m = new Modelo("ModelR",null);
+        	json = mapper.writeValueAsString(m);
+        	mock.perform(post("/projectapi/UsuarioR/project/proyectoR/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo@mail.com"))).andExpect(status().is2xxSuccessful());        	
+	    	Rectangulo rectangulo = new Rectangulo("Class", 15, 15, 200, 50, m);
+	    	json = mapper.writeValueAsString(rectangulo);
+	    	mock.perform(post("/projectapi/UsuarioR/project/proyectoR/version/1/modelo/ModelR/rectangle").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo@mail.com"))).andExpect(status().is2xxSuccessful());
+    	} catch (Exception e) {
+    		// TODO Auto-generated catch block
+			e.printStackTrace();
+    	}
     	
+    }
+    
+    @Test
+    public void shouldNotBeRegisterRectangleWithTheSameName() {
+    	System.out.println("PRUEBA 14 \n \n");
+    	try {
+	    	Usuario u = new Usuario("pruebaRectangulo2@mail.com","UsuarioRN",new BCryptPasswordEncoder().encode("test1"));  
+        	repo.save(u);
+        	Proyecto p = new Proyecto("proyectoRN",true,u);
+        	String json = mapper.writeValueAsString(p);
+        	mock.perform(post("/projectapi/UsuarioRN/project").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo2@mail.com"))).andExpect(status().is2xxSuccessful());
+        	Modelo m = new Modelo("ModelRN",null);
+        	json = mapper.writeValueAsString(m);
+        	mock.perform(post("/projectapi/UsuarioRN/project/proyectoRN/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo2@mail.com"))).andExpect(status().is2xxSuccessful());        	
+	    	Rectangulo rectangulo = new Rectangulo("Class", 15, 15, 200, 50, m);
+	    	json = mapper.writeValueAsString(rectangulo);
+	    	mock.perform(post("/projectapi/UsuarioRN/project/proyectoRN/version/1/modelo/ModelRN/rectangle").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo2@mail.com"))).andExpect(status().is2xxSuccessful());
+	    	mock.perform(post("/projectapi/UsuarioRN/project/proyectoRN/version/1/modelo/ModelRN/rectangle").content(json).contentType("application/json").header("Authorization", getToken("pruebaRectangulo2@mail.com"))).andExpect(status().is4xxClientError());
+    	} catch (Exception e) {
+    		// TODO Auto-generated catch block
+			e.printStackTrace();
+    	}
     	
-    }**/
+    }
+    
 }
