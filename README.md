@@ -40,7 +40,7 @@ Proponemos una herramienta que busca que los desarrolladores de software y demá
 
 ## Diagrama de clases
 
-![img](img/Diagrama%20de%20Clases.png)
+![img](img/Diagrama%20de%20Clases2.png)
 
 ## Casos de uso
 
@@ -106,6 +106,7 @@ COMO usuario QUIERO registrar un actor PARA PODER realizar un buen diagrama de c
 
 
 ## Diagrama entidad-Relacion
+![real](img/ER.PNG)
 
 ![start](img/Entidad.png)
 
