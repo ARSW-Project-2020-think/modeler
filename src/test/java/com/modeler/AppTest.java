@@ -21,8 +21,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.modeler.model.Modelo;
 import com.modeler.model.Proyecto;
 import com.modeler.model.Usuario;
+import com.modeler.model.Version;
+import com.modeler.repositories.ModelRepository;
 import com.modeler.repositories.ProjectRepository;
 import com.modeler.repositories.UserRepository;
 
@@ -43,6 +47,8 @@ public class AppTest {
     private UserRepository repo;
     @Autowired
     private ProjectRepository projects;
+    @Autowired
+    private ModelRepository models;
     @Autowired
     private MockMvc mock;
     @Autowired
@@ -200,5 +206,28 @@ public class AppTest {
 
                 .loadUserByUsername(email);
     	return jwToken.generateToken(userDetails);
+    }
+    @Test
+    public void souldntBeRegisterAndModelWithRepeatName() {
+    	try {
+    		Usuario u = new Usuario("test9@mail.com","people20",new BCryptPasswordEncoder().encode("test1")); 
+        	repo.save(u);
+        	Proyecto p = new Proyecto("me",true,u);
+        	projects.save(p);
+        	u = repo.findOne("tes109@mail.com");
+        	System.out.println("usuario "+mapper.writeValueAsString(u));
+        	Version v = u.getVersion("me", 1);
+        	Modelo m = new Modelo("Jay",v);
+        	models.save(m);
+        	Modelo m1 = new Modelo();
+        	m1.setNombre("Jay");
+        	String json = mapper.writeValueAsString(m1);
+			mock.perform(post("/projectapi/people20/project/me/version/1/modelo").content(json).contentType("application/json").header("Authorization", getToken("test9@mail.com"))).andExpect(status().is4xxClientError());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
     }
 }

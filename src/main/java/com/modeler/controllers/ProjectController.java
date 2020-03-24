@@ -93,6 +93,7 @@ public class ProjectController {
 			modelServices.save(m);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (ModelerException e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
