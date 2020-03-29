@@ -130,6 +130,13 @@ public class Usuario {
 		Proyecto p = getProyecto(nombreProyecto);
 		return p.getRectangulo(version,nombreModelo,nombreRectangulo);
 	}
+	public List<Proyecto> getProyectosCompartidos() {
+		return proyectosCompartidos;
+	}
+	public void setProyectosCompartidos(List<Proyecto> proyectosCompartidos) {
+		this.proyectosCompartidos = proyectosCompartidos;
+	}
+	
 
 	
 }

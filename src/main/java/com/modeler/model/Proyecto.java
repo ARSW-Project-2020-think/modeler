@@ -124,4 +124,11 @@ public class Proyecto {
 		Version v = getVersion(version);
 		return v.getRectangulo(nombreModelo,nombreRectangulo);
 	}
+	public List<Usuario> getColaboradores() {
+		return colaboradores;
+	}
+	public void setColaboradores(List<Usuario> colaboradores) {
+		this.colaboradores = colaboradores;
+	}
+	
 }
