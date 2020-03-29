@@ -136,6 +136,17 @@ public class Usuario {
 	public void setProyectosCompartidos(List<Proyecto> proyectosCompartidos) {
 		this.proyectosCompartidos = proyectosCompartidos;
 	}
+	private boolean isShareProyecto(Proyecto p) {
+		for(Proyecto pr: proyectosCompartidos) {
+			if(p.getId()==pr.getId()) return true;
+		}
+		return false;
+	}
+	public void addProyectoCompartido(Proyecto p) throws ModelerException{
+		if(isShareProyecto(p)) throw new ModelerException(ModelerException.proyectoYaCompartido);
+		proyectosCompartidos.add(p);
+		p.addColaborador(this);
+	}
 	
 
 	

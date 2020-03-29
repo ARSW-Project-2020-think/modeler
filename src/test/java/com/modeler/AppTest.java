@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Set;
@@ -298,7 +299,26 @@ public class AppTest {
     		// TODO Auto-generated catch block
 			e.printStackTrace();
     	}
-    	
     }
-    
+    @Test
+    public void shouldBeAddAnProyectToSahre() throws  Exception {
+    	Usuario u = new Usuario("pruebaShare1@mail.com","share1",new BCryptPasswordEncoder().encode("test1"));  
+    	repo.save(u);
+    	u = new Usuario("pruebaShare2@mail.com","share2",new BCryptPasswordEncoder().encode("test1"));  
+    	repo.save(u);
+    	Proyecto p = new Proyecto("axxx",false);
+    	mock.perform(post("/projectapi/share1/project").content(mapper.writeValueAsString(p)).contentType("application/json").header("Authorization", getToken("pruebaShare1@mail.com"))).andExpect(status().is2xxSuccessful());
+    	mock.perform(put("/projectapi/share1/share/share2/project/axxx").header("Authorization", getToken("pruebaShare1@mail.com"))).andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void shouldntBeAddAnProjetToShareIfExist() throws Exception{
+    	Usuario u = new Usuario("pruebaShare3@mail.com","share3",new BCryptPasswordEncoder().encode("test1"));  
+    	repo.save(u);
+    	u = new Usuario("pruebaShare4@mail.com","share4",new BCryptPasswordEncoder().encode("test1"));  
+    	repo.save(u);
+    	Proyecto p = new Proyecto("axxx",false);
+    	mock.perform(post("/projectapi/share3/project").content(mapper.writeValueAsString(p)).contentType("application/json").header("Authorization", getToken("pruebaShare3@mail.com"))).andExpect(status().is2xxSuccessful());
+    	mock.perform(put("/projectapi/share3/share/share4/project/axxx").header("Authorization", getToken("pruebaShare3@mail.com"))).andExpect(status().is2xxSuccessful());
+    	mock.perform(put("/projectapi/share3/share/share4/project/axxx").header("Authorization", getToken("pruebaShare3@mail.com"))).andExpect(status().is4xxClientError());
+    }
 }

@@ -8,6 +8,7 @@ public class ModelerException extends Exception{
 	public static String modeloInvalido = "Ya existe un un modelo con este nombre";
 	public static String claseInvalida = "Ya existe alguna clase con este nombre";
 	public static String claseInexistente ="No existe una clase con este nombre";
+	public static String proyectoYaCompartido = "Este proyecto ya fue compartido con este usuario";
 
 	public ModelerException(String ms) {
 		super(ms);

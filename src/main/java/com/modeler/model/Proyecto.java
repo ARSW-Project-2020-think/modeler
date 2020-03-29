@@ -130,5 +130,9 @@ public class Proyecto {
 	public void setColaboradores(List<Usuario> colaboradores) {
 		this.colaboradores = colaboradores;
 	}
+	public void addColaborador(Usuario usuario) {
+		colaboradores.add(usuario);
+		
+	}
 	
 }

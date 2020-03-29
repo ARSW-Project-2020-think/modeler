@@ -141,5 +141,21 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	@RequestMapping(value="/{username}/projectshared",method=RequestMethod.GET)
+	public ResponseEntity<?> getShareProjects(@PathVariable String username){
+		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getProyectosCompartidos(),HttpStatus.ACCEPTED);
+	}
+	@RequestMapping(value="/{username}/share/{to}/project/{projectname}",method = RequestMethod.PUT)
+	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String to,@PathVariable String projectname){
+		try {
+			Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(projectname);
+			Usuario u = userServices.getUsuarioByUsername(to);
+			u.addProyectoCompartido(p);
+			userServices.update(u);
+			u = userServices.getUsuarioByUsername(to);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }
