@@ -33,8 +33,12 @@ public class Proyecto {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private Usuario autor;
+	
+	
 	@OneToMany(mappedBy="proyecto")
 	private List<Version> versiones;
+	
+	
 	@JsonIgnore
 	@ManyToMany(mappedBy="proyectosCompartidos",fetch = FetchType.LAZY)
 	private List<Usuario> colaboradores;
