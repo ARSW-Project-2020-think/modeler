@@ -22,13 +22,17 @@ public class Usuario {
 	@Id
 	@Column
 	private String correo;
+	
 	@Column
 	private String username;
+	
 	@Column
 	private String password;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="compartido",
