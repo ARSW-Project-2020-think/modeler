@@ -7,6 +7,9 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +29,12 @@ public class Usuario {
 	@JsonIgnore
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
+	
+	@ManyToMany
+	@JoinTable(name="compartido",
+	joinColumns=@JoinColumn(name="id_usuario"),
+	inverseJoinColumns=@JoinColumn(name="id_proyecto"))
+	private List<Proyecto> proyectosCompartidos;
 	
 
 	public Usuario() {
