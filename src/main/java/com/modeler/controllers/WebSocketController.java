@@ -22,17 +22,16 @@ public class WebSocketController {
 	@MessageMapping("/rectangulo/modelo.{id}")
 	public void add(Rectangulo rectangulo,@DestinationVariable String id) {
 			try {
-				System.out.println("nuevo rectangulo recibido");
+				System.out.println("nuevo rectangulo recibido "+rectangulo);
 				Modelo m = services.getModelById(Integer.parseInt(id));
 				Rectangulo r = new Rectangulo(rectangulo.getNombre(),rectangulo.getX(),rectangulo.getY(),rectangulo.getAncho(),rectangulo.getAlto());
 				m.addRectangulo(r);
 				services.save(m);
-				ms.convertAndSend("/shape/rectangulo/modelo."+id,rectangulo);
+				ms.convertAndSend("/shape/rectangulo/modelo."+id,r);
 			} catch (ModelerException e) {
-				// TODO Auto-generated catch block
+				System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());
 				e.printStackTrace();
 			}
-			ms.convertAndSend("/shape/rectangulo/modelo."+id,rectangulo);
 			System.out.println("entro");
 	}
 	/**
