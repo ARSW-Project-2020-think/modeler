@@ -21,6 +21,12 @@ public class ModelServices {
 		}
 		repo.save(modelo);
 	}
+
+
+	public Modelo getModelById(int id) {
+		return repo.findOne(id);
+		
+	}
 	
 	
 }

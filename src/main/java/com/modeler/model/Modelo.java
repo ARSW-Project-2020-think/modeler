@@ -104,6 +104,12 @@ public class Modelo {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+	public void addRectangulo(Rectangulo rectangulo) {
+		rectangulos.add(rectangulo);
+		rectangulo.setModelo(this);
+		
+	}
 	
 	
 }
