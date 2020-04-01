@@ -11,7 +11,8 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 public class WebSocketModelerConfig extends AbstractWebSocketMessageBrokerConfigurer{
 	 @Override
 	    public void configureMessageBroker(MessageBrokerRegistry config) {
-	        config.enableSimpleBroker("/shape");    
+	        config.enableSimpleBroker("/shape");
+	        config.setApplicationDestinationPrefixes("/shape");
 	    }
 
 	    @Override

@@ -1,4 +1,4 @@
-package com.modeler.websocket.controller;
+package com.modeler.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -19,7 +19,7 @@ public class WebSocketController {
 	public void add(Rectangulo rectangulo,@DestinationVariable String id) {
 			System.out.println("nuevo rectangulo recibido");
 			//services.save(rectangulo);
-			ms.convertAndSend("/shape/rectangle/modelo."+id,rectangulo);
+			ms.convertAndSend("/shape/rectangulo/modelo.."+id,rectangulo);
 			System.out.println("entro");
 	}
 	/**
