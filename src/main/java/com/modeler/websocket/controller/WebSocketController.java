@@ -12,7 +12,6 @@ import com.modeler.model.Rectangulo;
 import com.modeler.services.RectangleServices;
 
 @Controller
-@CrossOrigin(origins="*")
 public class WebSocketController {
 	@Autowired
 	private SimpMessagingTemplate ms;
@@ -22,12 +21,15 @@ public class WebSocketController {
 	@MessageMapping("/rectangulo/modelo.{id}")
 	public void add(Rectangulo rectangulo,@DestinationVariable int id) {
 		try {
+			System.out.println("nuevo rectangulo recibido");
 			services.save(rectangulo);
 			ms.convertAndSend("/shape/rectangle/modelo."+id,rectangulo);
+			System.out.println("entro");
 		} catch (ModelerException e) {
-			
+			System.out.println("Error");
 		}
 	}
+	/**
 	@MessageMapping("/rectangulo/modelo.{id}/update")
 	public void updateRectangle(Rectangulo rect,@DestinationVariable String id) {
 		try {
@@ -36,6 +38,6 @@ public class WebSocketController {
 		} catch (ModelerException e) {
 			
 		}
-	}
+	}*/
 	
 }
