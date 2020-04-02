@@ -32,7 +32,7 @@ public class Modelo {
 	private Version version;
 	
 	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="modelo")
+	@OneToMany(mappedBy="modelo")
 	private List<Rectangulo> rectangulos;
 	
 	@Column
