@@ -39,15 +39,14 @@ public class WebSocketController {
 			}
 			System.out.println("entro");
 	}
-	/**
-	@MessageMapping("/rectangulo/modelo.{id}/update")
-	public void updateRectangle(Rectangulo rect,@DestinationVariable String id) {
+	@MessageMapping("/updaterectangle.{idmodelo}")
+	public void update(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
-			services.update(rect);
-			ms.convertAndSend("/shape/rectangle/modelo.{id}/update",rect);
+			rectangles.update(rectangulo);
+			ms.convertAndSend("/shape/updaterectangle."+idmodelo,rectangulo);
 		} catch (ModelerException e) {
 			
 		}
-	}*/
+	}
 	
 }
