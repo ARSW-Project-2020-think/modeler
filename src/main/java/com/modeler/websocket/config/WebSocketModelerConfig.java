@@ -12,7 +12,7 @@ public class WebSocketModelerConfig extends AbstractWebSocketMessageBrokerConfig
 	 @Override
 	    public void configureMessageBroker(MessageBrokerRegistry config) {
 	        config.enableSimpleBroker("/shape");
-	        //config.setApplicationDestinationPrefixes("/shape");
+	        config.setApplicationDestinationPrefixes("/figure");
 	    }
 
 	    @Override
