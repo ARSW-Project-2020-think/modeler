@@ -30,6 +30,7 @@ public class WebSocketController {
 				m.addRectangulo(r);
 				services.save(m);
 				ms.convertAndSend("/shape/newrectangle."+idmodelo,r);
+				System.out.println("-----------  -------- Salioo "+r+"  "+" modelo: "+idmodelo);
 			} catch (ModelerException e) {
 				System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());
 				e.printStackTrace();
