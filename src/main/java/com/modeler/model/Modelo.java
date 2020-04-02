@@ -2,6 +2,7 @@ package com.modeler.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Modelo {
 	private Version version;
 	
 	
-	@OneToMany(mappedBy="modelo")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Rectangulo> rectangulos;
 	
 	@Column
