@@ -20,6 +20,8 @@ public class WebSocketController {
 	private SimpMessagingTemplate ms;
 	@Autowired
 	private ModelServices services;
+	@Autowired
+	private RectangleServices rectangles;
 	
 	@MessageMapping("/newrectangle.{idmodelo}")
 	public void add(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
@@ -27,9 +29,9 @@ public class WebSocketController {
 				System.out.println("nuevo rectangulo recibido "+rectangulo);
 				Modelo m = services.getModelById(idmodelo);
 				Rectangulo r = new Rectangulo(rectangulo.getNombre(),rectangulo.getX(),rectangulo.getY(),rectangulo.getAncho(),rectangulo.getAlto());
-				m.addRectangulo(r);
-				services.save(m);
-				ms.convertAndSend("/shape/newrectangle."+idmodelo,r);
+				r.setModelo(m);
+				rectangles.save(r);
+				ms.convertAndSend("/shape/newrectangle."+idmodelo,services.getModelById(idmodelo).getRectangulo(r.getNombre()));
 				System.out.println("-----------  -------- Salioo "+r+"  "+" modelo: "+idmodelo);
 			} catch (ModelerException e) {
 				System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());

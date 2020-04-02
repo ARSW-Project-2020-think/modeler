@@ -35,6 +35,7 @@ public class Rectangulo {
 	
 	@Column
 	private int alto;
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_modelo")
