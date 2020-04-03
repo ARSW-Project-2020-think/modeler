@@ -24,4 +24,9 @@ public class RectangleServices {
 		repo.save(m);
 		
 	}
+
+	public Rectangulo getRectangleById(int id) {
+		return repo.findOne(id);
+		
+	}
 }

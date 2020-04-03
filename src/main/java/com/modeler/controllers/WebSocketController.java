@@ -42,8 +42,11 @@ public class WebSocketController {
 	@MessageMapping("/updaterectangle.{idmodelo}")
 	public void update(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
-			rectangles.update(rectangulo);
-			ms.convertAndSend("/shape/updaterectangle."+idmodelo,rectangulo);
+			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
+			r.setX(rectangulo.getX());
+			r.setY(rectangulo.getY());
+			rectangles.update(r);
+			ms.convertAndSend("/shape/updaterectangle."+idmodelo,r);
 		} catch (ModelerException e) {
 			
 		}
