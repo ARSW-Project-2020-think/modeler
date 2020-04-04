@@ -36,6 +36,9 @@ public class Modelo {
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Rectangulo> rectangulos;
 	
+	@OneToMany(mappedBy="modelo")
+	private List<Linea> lineas;
+	
 	@Column
 	private String tipo;
 	
@@ -111,6 +114,16 @@ public class Modelo {
 		rectangulo.setModelo(this);
 		
 	}
+
+	public List<Linea> getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(List<Linea> lineas) {
+		this.lineas = lineas;
+	}
+	
+	
 	
 	
 }

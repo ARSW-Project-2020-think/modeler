@@ -13,6 +13,10 @@ create table Rectangulo(id serial not null, x integer not null, y integer not nu
 		
 create table compartido(id serial not null,id_usuario varchar(5000) not null,id_proyecto integer not null);
 
+create table Linea(id serial not null,x1 integer not null,y1 integer not null,x2 integer not null,
+		y2 integer not null,cardinal1 varchar(10),cardinal2 varchar(10) ,nombre1 varchar(500), nombre2 varchar(500),
+		id_modelo integer not null);
+
 --PKS
 alter table usuario  add constraint pk_usuario primary key(correo);
 
@@ -25,6 +29,8 @@ alter table modelo add constraint pk_modelo primary key(id);
 alter table Rectangulo add constraint pk_rectangulo primary key(id);
 
 alter table compartido add constraint pk_compartido primary key(id);
+
+alter table Linea add constraint pk_linea primary key(id);
 
 --FKS
 
@@ -39,6 +45,8 @@ alter table Rectangulo add constraint fk_rectangulo_modelo foreign key(id_modelo
 alter table compartido add constraint fk_compartido_usuario foreign key(id_usuario) references usuario(correo);
 
 alter table compartido add constraint fk_compartido_proyecto foreign key(id_proyecto) references proyecto (id);
+
+alter table Linea add constraint fk_linea_modelo foreign key(id_modelo) references modelo(id);
 
 --UKs
 alter table usuario  add constraint uk_usuario_username unique(username);
