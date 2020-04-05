@@ -1,11 +1,12 @@
 package com.modeler.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Linea;
 import com.modeler.repositories.LineRepository;
-
+@Service
 public class LineServices {
 	@Autowired
 	private LineRepository repo;
