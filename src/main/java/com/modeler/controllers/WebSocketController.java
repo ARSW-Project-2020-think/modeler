@@ -1,5 +1,7 @@
 package com.modeler.controllers;
 
+import java.awt.Rectangle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -47,6 +49,7 @@ public class WebSocketController {
 	public void update(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
+			updateLines(rectangulo,r,services.getModelById(idmodelo));
 			r.setX(rectangulo.getX());
 			r.setY(rectangulo.getY());
 			rectangles.update(r);
@@ -70,6 +73,17 @@ public class WebSocketController {
 			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
 		
+	}
+	
+	public void updateLines(Rectangulo newrectangle,Rectangulo old,Modelo m) {
+		for(Linea l:m.getLineas()) {
+			if((old.getX()<l.getX1() && l.getX1()<old.getX()+old.getAncho())) {
+				l.setX1((newrectangle.getX()+(newrectangle.getAncho()/2)));
+				l.setY1((newrectangle.getY()+(newrectangle.getAlto()/2)));
+				lines.update(l);
+				ms.convertAndSend("/shape/updateline."+m.getId(),l);
+			}
+		}
 	}
 	
 }

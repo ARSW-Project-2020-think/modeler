@@ -15,4 +15,9 @@ public class LineServices {
 		if(linea.getModelo()==null || linea.getModelo().getLinea(linea)!=null) throw new ModelerException(ModelerException.existeYaEstaLinea);
 		repo.save(linea);
 	}
+
+	public void update(Linea l) {
+		repo.save(l);
+		
+	}
 }
