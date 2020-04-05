@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -37,6 +40,7 @@ public class Modelo {
 	private List<Rectangulo> rectangulos;
 	
 	@OneToMany(mappedBy="modelo")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Linea> lineas;
 	
 	@Column
