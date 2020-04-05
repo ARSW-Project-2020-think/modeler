@@ -77,9 +77,14 @@ public class WebSocketController {
 	
 	public void updateLines(Rectangulo newrectangle,Rectangulo old,Modelo m) {
 		for(Linea l:m.getLineas()) {
-			if((old.getX()<l.getX1() && l.getX1()<old.getX()+old.getAncho())) {
+			if(old.getX()<l.getX1() && l.getX1()<old.getX()+old.getAncho() && old.getY()<l.getY1() && l.getY1()<old.getY()+old.getAlto()) {
 				l.setX1((newrectangle.getX()+(newrectangle.getAncho()/2)));
 				l.setY1((newrectangle.getY()+(newrectangle.getAlto()/2)));
+				lines.update(l);
+				ms.convertAndSend("/shape/updateline."+m.getId(),l);
+			}else if(old.getX()<l.getX2() && l.getX2()<old.getX()+old.getAncho() && old.getY()<l.getY2() && l.getY2()<old.getY()+old.getAlto()) {
+				l.setX2((newrectangle.getX()+(newrectangle.getAncho()/2)));
+				l.setY2((newrectangle.getY()+(newrectangle.getAlto()/2)));
 				lines.update(l);
 				ms.convertAndSend("/shape/updateline."+m.getId(),l);
 			}
