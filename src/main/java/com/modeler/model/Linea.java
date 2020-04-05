@@ -151,6 +151,12 @@ public class Linea {
 		this.modelo = modelo;
 	}
 	
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Linea)) return false;
+		Linea linea = (Linea) obj;
+		return linea.getNombre1().equals(nombre1) && linea.getNombre2().equals(nombre2);
+	}
+	
 	
 	
 }

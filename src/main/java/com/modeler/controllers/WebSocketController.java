@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.modeler.exceptions.ModelerException;
+import com.modeler.model.Linea;
 import com.modeler.model.Modelo;
 import com.modeler.model.Rectangulo;
+import com.modeler.services.LineServices;
 import com.modeler.services.ModelServices;
 import com.modeler.services.RectangleServices;
 
@@ -22,6 +24,8 @@ public class WebSocketController {
 	private ModelServices services;
 	@Autowired
 	private RectangleServices rectangles;
+	@Autowired
+	private LineServices lines;
 	
 	@MessageMapping("/newrectangle.{idmodelo}")
 	public void add(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
@@ -50,6 +54,22 @@ public class WebSocketController {
 		} catch (ModelerException e) {
 			
 		}
+	}
+	@MessageMapping("/newline.{idmodelo}")
+	public void addLine(Linea linea,@DestinationVariable int idmodelo) {
+		try {
+			Modelo modelo = services.getModelById(idmodelo);
+			linea.setModelo(modelo);
+			lines.save(linea);
+			modelo = services.getModelById(idmodelo);
+			ms.convertAndSend("/shape/newline."+idmodelo,modelo.getLinea(linea));
+		}catch(ModelerException e) {
+			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		}
+		
 	}
 	
 }
