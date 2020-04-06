@@ -26,7 +26,7 @@ public class RectangleServices {
 	}
 
 	public Rectangulo getRectangleById(int id) {
-		return repo.findOne(id);
+		return repo.findById(id).orElse(null);
 		
 	}
 }

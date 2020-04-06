@@ -31,7 +31,7 @@ public class UserServices {
 	}
 	
 	public Usuario getUsuario(String email) {
-		return repo.findOne(email);
+		return repo.findById(email).orElse(null);
 	}
 
 	public List<Usuario> getAll() {

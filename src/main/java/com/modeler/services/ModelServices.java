@@ -24,7 +24,7 @@ public class ModelServices {
 
 
 	public Modelo getModelById(int id) {
-		return repo.findOne(id);
+		return repo.findById(id).orElse(null);
 		
 	}
 	

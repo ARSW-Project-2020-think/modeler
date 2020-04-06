@@ -17,7 +17,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private UserRepository repo;
 
 	public UserDetails loadUserByUsername(String username) {
-		Usuario u =  repo.findOne(username);
+		Usuario u =  repo.findById(username).get();
 		return new User(u.getCorreo(),u.getPassword(),new ArrayList<>());
 	}
 	
