@@ -60,7 +60,9 @@ public class WebSocketController {
 	@MessageMapping("/newrelation.{idmodelo}")
 	public void addLine(Rectangulo relacion,@DestinationVariable int idmodelo) {
 			try {
-				rectangles.save(relacion);
+				Rectangulo r = rectangles.getRectangleById(relacion.getId());
+				r.setRelaciones(relacion.getRelaciones());
+				rectangles.save(r);
 				ms.convertAndSend("/shape/updaterectangle."+idmodelo,relacion);
 			} catch (ModelerException e) {
 				System.out.println("Hubo un error "+e.getMessage());
