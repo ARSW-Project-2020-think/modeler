@@ -2,6 +2,9 @@ package com.modeler.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
@@ -11,8 +14,9 @@ import java.util.List;
 @DiscriminatorValue(value="Rectangulo")
 public class Rectangulo extends Componente{
 
-	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Metodo>metodos=new ArrayList<Metodo>();
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL)
 	private List<Atributo> atributos=new ArrayList<Atributo>();
 
