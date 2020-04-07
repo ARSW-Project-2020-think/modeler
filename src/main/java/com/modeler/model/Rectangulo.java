@@ -1,121 +1,45 @@
 package com.modeler.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table
-public class Rectangulo {
-	
-	
-	@Id
-	@Column
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	@Column
-	private String nombre;
-	
-	@Column
-	private int x;
-	
-	@Column
-	private int y;
-	
-	@Column
-	private int ancho;
-	
-	@Column
-	private int alto;
-	
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_modelo")
-	private Modelo modelo;
-	
-	public Rectangulo() {
-		
+@DiscriminatorValue(value="Rectangulo")
+public class Rectangulo extends Componente{
+
+	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL)
+	private List<Metodo>metodos=new ArrayList<Metodo>();
+	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL)
+	private List<Atributo> atributos=new ArrayList<Atributo>();
+
+	public Rectangulo(){
+		super();
 	}
-	
+
 	public Rectangulo(String nombre,int x,int y,int ancho,int alto) {
-		this.nombre = nombre;
-		this.x = x;
-		this.y = y;
-		this.ancho = ancho;
-		this.alto = alto;
+		super(nombre,x,y,ancho,alto);
 	}
 	public Rectangulo(String nombre,int x,int y,int ancho,int alto,Modelo modelo) {
-		this(nombre,x,y,ancho,alto);
-		this.modelo = modelo;
+		super(nombre,x,y,ancho,alto,modelo);
 	}
 
-	public int getId() {
-		return id;
+	public List<Metodo> getMetodos() {
+		return metodos;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setMetodos(List<Metodo> metodos) {
+		this.metodos = metodos;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public List<Atributo> getAtributos() {
+		return atributos;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
-
-	public int getAlto() {
-		return alto;
-	}
-
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-
-	public Modelo getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
-	}
-	
-	public boolean equals(Object ob) {
-		if(!(ob instanceof Rectangulo)) return false;
-		return ((Rectangulo) ob).getId() ==id;
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
 	}
 }
