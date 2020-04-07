@@ -37,7 +37,7 @@ public abstract class Componente {
             joinColumns={@JoinColumn(name="componente_id")},
             inverseJoinColumns={@JoinColumn(name="componente2_id")})
     private Set<Componente> relaciones = new HashSet<Componente>();
-
+    @JsonIgnore
     @ManyToMany(mappedBy="relaciones")
     @JsonIgnoreProperties("componentesRelacionados")
     private Set<Componente> componentesRelacionados = new HashSet<Componente>();
