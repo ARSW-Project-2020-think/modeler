@@ -34,10 +34,14 @@ public class Modelo {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_version")
 	private Version version;
-	
-	
+
+
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Rectangulo> rectangulos;
+
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Componente> componentes;
 	
 	@OneToMany(mappedBy="modelo")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -125,6 +129,14 @@ public class Modelo {
 
 	public void setLineas(List<Linea> lineas) {
 		this.lineas = lineas;
+	}
+
+	public List<Componente> getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(List<Componente> componentes) {
+		this.componentes = componentes;
 	}
 
 	public Linea getLinea(Linea linea) {

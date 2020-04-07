@@ -15,4 +15,29 @@ public class Atributo {
     @JoinColumn(name="id_atributo")
     private Rectangulo rectangulo;
 
+    private String atributo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Rectangulo getRectangulo() {
+        return rectangulo;
+    }
+
+    public void setRectangulo(Rectangulo rectangulo) {
+        this.rectangulo = rectangulo;
+    }
+
+    public String getAtributo() {
+        return atributo;
+    }
+
+    public void setAtributo(String atributo) {
+        this.atributo = atributo;
+    }
 }

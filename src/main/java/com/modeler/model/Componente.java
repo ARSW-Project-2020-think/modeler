@@ -47,6 +47,7 @@ public abstract class Componente {
     }
 
     public Componente(String nombre,int x,int y,int ancho,int alto) {
+        super();
         this.nombre = nombre;
         this.x = x;
         this.y = y;
