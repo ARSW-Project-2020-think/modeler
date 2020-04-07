@@ -32,7 +32,7 @@ public abstract class Componente {
     @JoinColumn(name="id_modelo")
     private Modelo modelo;
 
-    @ManyToMany(cascade={CascadeType.ALL})
+    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
     @JoinTable(name="Relacion",
             joinColumns={@JoinColumn(name="componente_id")},
             inverseJoinColumns={@JoinColumn(name="componente2_id")})
