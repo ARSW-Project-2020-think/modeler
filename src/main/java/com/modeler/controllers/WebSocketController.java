@@ -49,7 +49,6 @@ public class WebSocketController {
 	public void update(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
-			updateLines(rectangulo,r,services.getModelById(idmodelo));
 			r.setX(rectangulo.getX());
 			r.setY(rectangulo.getY());
 			rectangles.update(r);
@@ -58,37 +57,16 @@ public class WebSocketController {
 			
 		}
 	}
-	@MessageMapping("/newline.{idmodelo}")
-	public void addLine(Linea linea,@DestinationVariable int idmodelo) {
-		try {
-			Modelo modelo = services.getModelById(idmodelo);
-			linea.setModelo(modelo);
-			lines.save(linea);
-			modelo = services.getModelById(idmodelo);
-			ms.convertAndSend("/shape/newline."+idmodelo,modelo.getLinea(linea));
-		}catch(ModelerException e) {
-			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(">>>>>>>>>>>> Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		}
+	@MessageMapping("/newrelation.{idmodelo}")
+	public void addLine(Rectangulo relacion,@DestinationVariable int idmodelo) {
+			try {
+				rectangles.save(relacion);
+				ms.convertAndSend("/shape/updaterectangle."+idmodelo,relacion);
+			} catch (ModelerException e) {
+				System.out.println("Hubo un error "+e.getMessage());
+			}
 		
 	}
 	
-	public void updateLines(Rectangulo newrectangle,Rectangulo old,Modelo m) {
-		for(Linea l:m.getLineas()) {
-			if(old.getX()<l.getX1() && l.getX1()<old.getX()+old.getAncho() && old.getY()<l.getY1() && l.getY1()<old.getY()+old.getAlto()) {
-				l.setX1((newrectangle.getX()+(newrectangle.getAncho()/2)));
-				l.setY1((newrectangle.getY()+(newrectangle.getAlto()/2)));
-				lines.update(l);
-				ms.convertAndSend("/shape/updateline."+m.getId(),l);
-			}else if(old.getX()<l.getX2() && l.getX2()<old.getX()+old.getAncho() && old.getY()<l.getY2() && l.getY2()<old.getY()+old.getAlto()) {
-				l.setX2((newrectangle.getX()+(newrectangle.getAncho()/2)));
-				l.setY2((newrectangle.getY()+(newrectangle.getAlto()/2)));
-				lines.update(l);
-				ms.convertAndSend("/shape/updateline."+m.getId(),l);
-			}
-		}
-	}
 	
 }

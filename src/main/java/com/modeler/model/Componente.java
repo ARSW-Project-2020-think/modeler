@@ -2,6 +2,7 @@ package com.modeler.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.modeler.exceptions.ModelerException;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -127,5 +128,22 @@ public abstract class Componente {
 
     public void setComponentesRelacionados(Set<Componente> componentesRelacionados) {
         this.componentesRelacionados = componentesRelacionados;
+    }
+    
+    public Componente getComponente(Componente componente) {
+    	for(Componente c:relaciones) {
+    		if(c.equals(componente)) return c;
+    	}
+    	return null;
+    }
+    
+    public void addComponente(Componente componente) throws ModelerException{
+    	if(getComponente(componente)!=null) throw new ModelerException("Ya existe una relacion con este componente");
+    	relaciones.add(componente);
+    }
+    
+    public boolean equals(Object ob) {
+    	if(!(ob instanceof Componente)) return false;
+    	return ((Componente)ob).getId() == id;
     }
 }
