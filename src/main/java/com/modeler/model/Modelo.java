@@ -39,8 +39,7 @@ public class Modelo {
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Rectangulo> rectangulos;
 
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Componente> componentes;
 	
 	@OneToMany(mappedBy="modelo")

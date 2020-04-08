@@ -32,15 +32,15 @@ public abstract class Componente {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_modelo")
     private Modelo modelo;
-
-    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    
+    @JsonIgnoreProperties("relaciones")
+    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
     @JoinTable(name="Relacion",
             joinColumns={@JoinColumn(name="componente_id")},
             inverseJoinColumns={@JoinColumn(name="componente2_id")})
     private Set<Componente> relaciones = new HashSet<Componente>();
     @JsonIgnore
-    @ManyToMany(mappedBy="relaciones")
-    @JsonIgnoreProperties("componentesRelacionados")
+    @ManyToMany(mappedBy="relaciones",fetch=FetchType.LAZY)
     private Set<Componente> componentesRelacionados = new HashSet<Componente>();
 
     public Componente(){

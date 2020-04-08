@@ -1,16 +1,16 @@
 package com.modeler.controllers;
 
-import java.awt.Rectangle;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.modeler.exceptions.ModelerException;
-import com.modeler.model.Linea;
 import com.modeler.model.Modelo;
 import com.modeler.model.Rectangulo;
 import com.modeler.services.LineServices;
@@ -21,13 +21,13 @@ import com.modeler.services.RectangleServices;
 @CrossOrigin(origins="*")
 public class WebSocketController {
 	@Autowired
-	private SimpMessagingTemplate ms;
-	@Autowired
 	private ModelServices services;
 	@Autowired
 	private RectangleServices rectangles;
 	@Autowired
 	private LineServices lines;
+	@Autowired
+	private SimpMessagingTemplate ms;
 	
 	@MessageMapping("/newrectangle.{idmodelo}")
 	public void add(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
@@ -58,12 +58,16 @@ public class WebSocketController {
 		}
 	}
 	@MessageMapping("/newrelation.{idmodelo}")
-	public void addLine(Rectangulo relacion,@DestinationVariable int idmodelo) {
+	public void addLine(List<Rectangulo> relacion,@DestinationVariable int idmodelo) {
 			try {
-				Rectangulo r = rectangles.getRectangleById(relacion.getId());
-				r.setRelaciones(relacion.getRelaciones());
-				rectangles.save(r);
-				ms.convertAndSend("/shape/updaterectangle."+idmodelo,relacion);
+				Rectangulo r = rectangles.getRectangleById(relacion.get(0).getId());
+				Rectangulo r2 = rectangles.getRectangleById(relacion.get(1).getId());
+				r.addComponente(r2);
+				rectangles.update(r);
+				r2.addComponente(r);
+				System.out.println("Creo relacion");
+				
+				ms.convertAndSend("/shape/updaterectangle."+idmodelo,new Rectangulo[] {r,r2});
 			} catch (ModelerException e) {
 				System.out.println("Hubo un error "+e.getMessage());
 			}

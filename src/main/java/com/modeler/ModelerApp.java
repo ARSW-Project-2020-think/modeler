@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @SpringBootApplication
-@EnableAutoConfiguration
 @EnableJpaRepositories("com.modeler.repositories")
 @ComponentScan(basePackages= {"com.modeler"})
 public class ModelerApp

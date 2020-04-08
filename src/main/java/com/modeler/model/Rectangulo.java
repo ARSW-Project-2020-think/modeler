@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(value="Rectangulo")
 public class Rectangulo extends Componente{
-
 	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Metodo>metodos=new ArrayList<Metodo>();
 	@LazyCollection(LazyCollectionOption.FALSE)
