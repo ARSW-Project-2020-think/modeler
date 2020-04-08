@@ -65,9 +65,8 @@ public class WebSocketController {
 				r.addComponente(r2);
 				rectangles.update(r);
 				r2.addComponente(r);
-				System.out.println("Creo relacion");
-				
-				ms.convertAndSend("/shape/updaterectangle."+idmodelo,new Rectangulo[] {r,r2});
+				System.out.println("Creo relacion");				
+				ms.convertAndSend("/shape/newrelation."+idmodelo,new Rectangulo[] {r,r2});
 			} catch (ModelerException e) {
 				System.out.println("Hubo un error "+e.getMessage());
 			}
