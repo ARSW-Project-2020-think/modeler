@@ -158,4 +158,10 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	@RequestMapping(value="/{username}/colaborators/project/{projectname}",method = RequestMethod.PUT)
+	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String projectname){
+		Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(projectname);
+		p.getColaboradores();
+		return new ResponseEntity<>(p.getColaboradores(),HttpStatus.ACCEPTED);
+	}
 }
