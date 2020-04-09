@@ -8,4 +8,9 @@ import javax.persistence.Entity;
 public class Ovalo extends Componente {
     public Ovalo() {
     }
+    
+    @Override
+    public int hashCode() {
+    	return 8;
+    }
 }

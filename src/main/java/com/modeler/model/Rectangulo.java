@@ -45,4 +45,9 @@ public class Rectangulo extends Componente{
 	public void setAtributos(List<Atributo> atributos) {
 		this.atributos = atributos;
 	}
+	
+	@Override
+	public int hashCode() {
+		return 7;
+	}
 }

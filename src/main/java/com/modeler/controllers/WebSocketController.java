@@ -72,6 +72,22 @@ public class WebSocketController {
 			}
 		
 	}
+	@MessageMapping("/deleteRelation.{idmodelo}")
+	public void removeRelation(List<Rectangulo> relacion,@DestinationVariable int idmodelo) {
+		try {
+			Rectangulo r1 = rectangles.getRectangleById(relacion.get(0).getId());
+			Rectangulo r2 = rectangles.getRectangleById(relacion.get(1).getId());
+			r1.removerComponenteRelacion(r2);
+			r2.removerComponenteRelacion(r1);
+			rectangles.update(r1);
+			rectangles.update(r2);
+			r1 = rectangles.getRectangleById(relacion.get(0).getId());
+			r2 = rectangles.getRectangleById(relacion.get(1).getId());
+			ms.convertAndSend("/shape/deleteRelation."+idmodelo,new Rectangulo[] {r1,r2});
+		}catch(ModelerException e) {
+			
+		}
+	}
 	
 	
 }

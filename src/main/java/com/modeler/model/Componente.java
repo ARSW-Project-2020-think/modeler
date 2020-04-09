@@ -143,6 +143,12 @@ public abstract class Componente {
     	relaciones.add(componente);
     }
     
+    public void removerComponenteRelacion(Componente componente) {
+    	if(getComponente(componente)!=null) {
+    		relaciones.remove(componente);
+    	}
+    }
+    
     public boolean equals(Object ob) {
     	if(!(ob instanceof Componente)) return false;
     	return ((Componente)ob).getId() == id;
