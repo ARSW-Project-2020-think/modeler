@@ -29,4 +29,9 @@ public class RectangleServices {
 		return repo.findById(id).orElse(null);
 		
 	}
+	
+	public void delete(Rectangulo rectangulo) throws ModelerException{
+		if(repo.getOne(rectangulo.getId())==null) throw new ModelerException(ModelerException.noExisteRectangulo);
+		repo.delete(rectangulo);
+	}
 }

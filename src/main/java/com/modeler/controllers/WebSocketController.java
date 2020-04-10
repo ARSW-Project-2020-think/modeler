@@ -11,9 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.modeler.exceptions.ModelerException;
+import com.modeler.model.Metodo;
 import com.modeler.model.Modelo;
 import com.modeler.model.Rectangulo;
+import com.modeler.repositories.MethodRepository;
 import com.modeler.services.LineServices;
+import com.modeler.services.MethodServices;
 import com.modeler.services.ModelServices;
 import com.modeler.services.RectangleServices;
 
@@ -26,6 +29,8 @@ public class WebSocketController {
 	private RectangleServices rectangles;
 	@Autowired
 	private LineServices lines;
+	@Autowired
+	private MethodServices metodos;
 	@Autowired
 	private SimpMessagingTemplate ms;
 	
@@ -72,6 +77,7 @@ public class WebSocketController {
 			}
 		
 	}
+	
 	@MessageMapping("/deleteRelation.{idmodelo}")
 	public void removeRelation(List<Rectangulo> relacion,@DestinationVariable int idmodelo) {
 		try {
@@ -88,6 +94,41 @@ public class WebSocketController {
 			
 		}
 	}
+	@MessageMapping("/deleteRectangle.{idmodelo}")
+	public void removeRelation(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+		try {
+			rectangles.delete(rectangulo);
+			ms.convertAndSend("/shape/deleteRectangle."+idmodelo,rectangulo);
+		} catch (ModelerException e) {
+			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
+		}
+	}
+	@MessageMapping("/newMethod.{idmodelo}")
+	public void addMethod(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+		try {
+			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
+			Metodo m = r.getMetodos().get(r.getMetodos().size()-1);
+			Metodo m2 = new Metodo(m.getMetodo(),r);
+			r.addMetodo(m2);
+			r = rectangles.getRectangleById(rectangulo.getId());
+			ms.convertAndSend("/shape/newMethod."+idmodelo,r);
+		} catch (ModelerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@MessageMapping("/deleteMethod.{idmodelo}")
+	public void deleteMethod(Metodo metodo,@DestinationVariable int idmodelo) {
+		try {
+			Metodo m = metodos.getModeloById(metodo.getId());
+			metodos.delete(m);
+			ms.convertAndSend("/shape/deleteMethod."+idmodelo,m);
+		} catch (ModelerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 }

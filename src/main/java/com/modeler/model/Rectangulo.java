@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.modeler.exceptions.ModelerException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +50,15 @@ public class Rectangulo extends Componente{
 	@Override
 	public int hashCode() {
 		return 7;
+	}
+	public Metodo getMetodo(String text) {
+		for(Metodo m:metodos) {
+			if(m.getMetodo().equals(text)) return m;
+		}
+		return null;
+	}
+	public void addMetodo(Metodo metodo) throws ModelerException {
+		if(getMetodo(metodo.getMetodo())!=null) throw new ModelerException(ModelerException.metodoExistente);
+		metodos.add(metodo);
 	}
 }

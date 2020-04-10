@@ -10,6 +10,9 @@ public class ModelerException extends Exception{
 	public static String claseInexistente ="No existe una clase con este nombre";
 	public static String proyectoYaCompartido = "Este proyecto ya fue compartido con este usuario";
 	public static String existeYaEstaLinea = "Ya existe una linea con estas caracteristicas";
+	public static String noExisteRectangulo = "No existe un rectangulo con ese nombre";
+	public static String metodoExistente = "Ya existe un metodo con este nombre";
+	public static String noExisteMetodo ="No existe este metodo";
 
 	public ModelerException(String ms) {
 		super(ms);

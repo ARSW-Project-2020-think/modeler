@@ -16,6 +16,19 @@ public class Metodo {
     private Rectangulo rectangulo;
 
     private String metodo;
+    
+    public Metodo() {
+    	
+    }
+    
+    public Metodo(String metodo) {
+    	this.metodo = metodo;
+    }
+    
+    public Metodo(String metodo,Rectangulo rectangulo) {
+    	this(metodo);
+    	this.rectangulo = rectangulo;
+    }
 
     public int getId() {
         return id;
