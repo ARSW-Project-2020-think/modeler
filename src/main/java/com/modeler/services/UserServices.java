@@ -47,9 +47,9 @@ public class UserServices {
 		repo.save(u);
 	}
 
-	public boolean esColaborador(String project, List<Proyecto> proyectosCompartidos) {
+	public boolean esColaborador(String autor,String project, List<Proyecto> proyectosCompartidos) {
 		for (Proyecto p: proyectosCompartidos) {
-			if(p.getNombre().equals(project)){
+			if(p.getNombre().equals(project)&&p.getAutor().equals(autor)){
 				return true;
 			}
 		}

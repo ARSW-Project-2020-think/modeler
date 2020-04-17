@@ -90,7 +90,7 @@ public class ProjectController {
 	public ResponseEntity<?> saveModel(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
 
-		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(username,project,proyectosCompartidos)) {
 			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
 		}
 
@@ -112,7 +112,7 @@ public class ProjectController {
 	public ResponseEntity<?> getModelos(@PathVariable String username,@PathVariable String project,@PathVariable int version,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
 
-		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(username,project,proyectosCompartidos)) {
 			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
 		}
 
@@ -123,7 +123,7 @@ public class ProjectController {
 	public ResponseEntity<?> getModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
 
-		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(username,project,proyectosCompartidos)) {
 			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
 		}
 
@@ -136,7 +136,7 @@ public class ProjectController {
 	public ResponseEntity<?> saveRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
 
-		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(username,project,proyectosCompartidos)) {
 			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
 		}
 
@@ -155,7 +155,7 @@ public class ProjectController {
 	public ResponseEntity<?> updateRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
 
-		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&userServices.esColaborador(project,proyectosCompartidos)) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&userServices.esColaborador(username,project,proyectosCompartidos)) {
 			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
 		}
 
