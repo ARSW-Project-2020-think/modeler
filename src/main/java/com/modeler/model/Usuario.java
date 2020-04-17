@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,7 @@ public class Usuario {
 		this.correo = correo;
 		this.username = username;
 		this.password = password;
+		this.proyectosCompartidos=new ArrayList<Proyecto>();
 	}
 
 	public String getCorreo() {

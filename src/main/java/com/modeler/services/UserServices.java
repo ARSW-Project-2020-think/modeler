@@ -3,6 +3,7 @@ package com.modeler.services;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.modeler.model.Proyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,14 @@ public class UserServices {
 
 	public void update(Usuario u) {
 		repo.save(u);
+	}
+
+	public boolean esColaborador(String project, List<Proyecto> proyectosCompartidos) {
+		for (Proyecto p: proyectosCompartidos) {
+			if(p.getNombre().equals(project)){
+				return true;
+			}
+		}
+		return false;
 	}
 }

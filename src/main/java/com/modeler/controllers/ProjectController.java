@@ -23,6 +23,8 @@ import com.modeler.services.RectangleServices;
 import com.modeler.services.UserServices;
 import com.modeler.services.VersionServices;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping(value="/projectapi")
@@ -85,7 +87,13 @@ public class ProjectController {
 	
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo", method = RequestMethod.POST)
-	public ResponseEntity<?> saveModel(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo){
+	public ResponseEntity<?> saveModel(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo,Authentication auth){
+		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
+
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
+
 		try {
 			Usuario u = userServices.getUsuarioByUsername(username);
 			Version v = u.getVersion(project,version);
@@ -101,21 +109,37 @@ public class ProjectController {
 	
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo",method=RequestMethod.GET)
-	public ResponseEntity<?> getModelos(@PathVariable String username,@PathVariable String project,@PathVariable int version){
-		
+	public ResponseEntity<?> getModelos(@PathVariable String username,@PathVariable String project,@PathVariable int version,Authentication auth){
+		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
+
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
+
 		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getModelos(project,version),HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}",method=RequestMethod.GET)
-	public ResponseEntity<?> getModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname){
-		
+	public ResponseEntity<?> getModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,Authentication auth){
+		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
+
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
+
 		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getModelo(project,version,modelname),
 				HttpStatus.ACCEPTED);
 	}
 	
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}/rectangle",method=RequestMethod.POST)
-	public ResponseEntity<?> saveRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo){
+	public ResponseEntity<?> saveRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo,Authentication auth){
+		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
+
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&!userServices.esColaborador(project,proyectosCompartidos)) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
+
 		try {
 			Modelo m = userServices.getUsuarioByUsername(username).getModelo(project,version,modelname);
 			
@@ -128,7 +152,13 @@ public class ProjectController {
 		}
 	}
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}/rectangle",method=RequestMethod.PUT)
-	public ResponseEntity<?> updateRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo){
+	public ResponseEntity<?> updateRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo,Authentication auth){
+		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
+
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())&&userServices.esColaborador(project,proyectosCompartidos)) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
+
 		try {
 			Rectangulo m = userServices.getUsuarioByUsername(username).getRectangulo(project,version,modelname,rectangulo.getNombre());
 			m.setX(rectangulo.getX());
@@ -141,12 +171,19 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+
 	@RequestMapping(value="/{username}/projectshared",method=RequestMethod.GET)
-	public ResponseEntity<?> getShareProjects(@PathVariable String username){
+	public ResponseEntity<?> getShareProjects(@PathVariable String username,Authentication auth) {
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
 		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getProyectosCompartidos(),HttpStatus.ACCEPTED);
 	}
 	@RequestMapping(value="/{username}/share/{to}/project/{projectname}",method = RequestMethod.PUT)
-	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String to,@PathVariable String projectname){
+	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String to,@PathVariable String projectname ,Authentication auth){
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
 		try {
 			Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(projectname);
 			Usuario u = userServices.getUsuarioByUsername(to);
@@ -159,7 +196,10 @@ public class ProjectController {
 		}
 	}
 	@RequestMapping(value="/{username}/colaborators/project/{projectname}",method = RequestMethod.GET)
-	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String projectname){
+	public ResponseEntity<?> getCollaborators(@PathVariable String username,@PathVariable String projectname,Authentication auth){
+		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
+			return new ResponseEntity<>("Error, FORBIDDEN add project",HttpStatus.FORBIDDEN);
+		}
 		Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(projectname);
 		p.getColaboradores();
 		return new ResponseEntity<>(p.getColaboradores(),HttpStatus.ACCEPTED);
