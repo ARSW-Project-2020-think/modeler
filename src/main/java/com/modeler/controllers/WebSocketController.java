@@ -39,16 +39,15 @@ public class WebSocketController {
 	@Autowired
 	private SimpMessagingTemplate ms;
 	
-	@MessageMapping("/newrectangle.{idmodelo}")
-	public void add(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+	@MessageMapping("/newcomponent.{idmodelo}")
+	public void add(Componente componente,@DestinationVariable int idmodelo) {
 			try {
-				System.out.println("nuevo rectangulo recibido "+rectangulo);
 				Modelo m = services.getModelById(idmodelo);
-				Rectangulo r = new Rectangulo(rectangulo.getNombre(),rectangulo.getX(),rectangulo.getY(),rectangulo.getAncho(),rectangulo.getAlto());
-				r.setModelo(m);
-				rectangles.save(r);
-				ms.convertAndSend("/shape/newrectangle."+idmodelo,services.getModelById(idmodelo).getRectangulo(r.getNombre()));
-				System.out.println("-----------  -------- Salioo "+r+"  "+" modelo: "+idmodelo);
+				componente.setModelo(m);
+				Componente cm = (Componente) componente.clone(); 
+				components.addComponent(cm);
+				ms.convertAndSend("/shape/newcomponent."+idmodelo,services.getModelById(idmodelo).getComponente(componente));
+				System.out.println("-----------  -------- Salioo ");
 			} catch (ModelerException e) {
 				System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());
 				e.printStackTrace();

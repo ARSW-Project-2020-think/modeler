@@ -68,4 +68,8 @@ public class Rectangulo extends Componente{
 		if(getMetodo(metodo.getMetodo())!=null) throw new ModelerException(ModelerException.metodoExistente);
 		metodos.add(metodo);
 	}
+	@Override
+	public Object clone() {
+		return new Rectangulo(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
+	}
 }

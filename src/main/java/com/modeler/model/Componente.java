@@ -160,4 +160,9 @@ public abstract class Componente {
     	if(!(ob instanceof Componente)) return false;
     	return ((Componente)ob).getId() == id;
     }
+    
+    @Override
+    public Object clone() {
+    	return null;
+    }
 }
