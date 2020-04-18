@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value="Ovalo")
 public class Ovalo extends Componente {
+		
     public Ovalo() {
     }
     
