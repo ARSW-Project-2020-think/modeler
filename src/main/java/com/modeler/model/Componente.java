@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.modeler.exceptions.ModelerException;
+import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
 @DiscriminatorColumn(name = "tipo")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorOptions(force = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Rectangulo.class, name = "Rectangulo"),
@@ -41,13 +43,13 @@ public abstract class Componente {
     private Modelo modelo;
     
     @JsonIgnoreProperties("relaciones")
-    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.LAZY,targetEntity = Componente.class)
     @JoinTable(name="Relacion",
             joinColumns={@JoinColumn(name="componente_id")},
             inverseJoinColumns={@JoinColumn(name="componente2_id")})
     private Set<Componente> relaciones = new HashSet<Componente>();
     @JsonIgnore
-    @ManyToMany(mappedBy="relaciones",fetch=FetchType.LAZY)
+    @ManyToMany(mappedBy="relaciones",fetch=FetchType.LAZY,targetEntity = Componente.class)
     private Set<Componente> componentesRelacionados = new HashSet<Componente>();
 
     public Componente(){
