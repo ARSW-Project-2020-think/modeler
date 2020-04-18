@@ -54,14 +54,14 @@ public class WebSocketController {
 			}
 			System.out.println("entro");
 	}
-	@MessageMapping("/updaterectangle.{idmodelo}")
-	public void update(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+	@MessageMapping("/updatecomponent.{idmodelo}")
+	public void update(Componente component,@DestinationVariable int idmodelo) {
 		try {
-			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
-			r.setX(rectangulo.getX());
-			r.setY(rectangulo.getY());
-			rectangles.update(r);
-			ms.convertAndSend("/shape/updaterectangle."+idmodelo,r);
+			Componente r = components.getComponenteById(component.getId());
+			r.setX(component.getX());
+			r.setY(component.getY());
+			components.update(r);
+			ms.convertAndSend("/shape/updatecomponent."+idmodelo,r);
 		} catch (ModelerException e) {
 			
 		}
@@ -83,26 +83,26 @@ public class WebSocketController {
 	}
 	
 	@MessageMapping("/deleteRelation.{idmodelo}")
-	public void removeRelation(List<Rectangulo> relacion,@DestinationVariable int idmodelo) {
+	public void removeRelation(List<Componente> relacion,@DestinationVariable int idmodelo) {
 		try {
-			Rectangulo r1 = rectangles.getRectangleById(relacion.get(0).getId());
-			Rectangulo r2 = rectangles.getRectangleById(relacion.get(1).getId());
+			Componente r1 = components.getComponenteById(relacion.get(0).getId());
+			Componente r2 = components.getComponenteById(relacion.get(1).getId());
 			r1.removerComponenteRelacion(r2);
 			r2.removerComponenteRelacion(r1);
-			rectangles.update(r1);
-			rectangles.update(r2);
-			r1 = rectangles.getRectangleById(relacion.get(0).getId());
-			r2 = rectangles.getRectangleById(relacion.get(1).getId());
-			ms.convertAndSend("/shape/deleteRelation."+idmodelo,new Rectangulo[] {r1,r2});
+			components.update(r1);
+			components.update(r2);
+			r1 = components.getComponenteById(relacion.get(0).getId());
+			r2 = components.getComponenteById(relacion.get(1).getId());
+			ms.convertAndSend("/shape/deleteRelation."+idmodelo,new Componente[] {r1,r2});
 		}catch(ModelerException e) {
 			
 		}
 	}
-	@MessageMapping("/deleteRectangle.{idmodelo}")
-	public void removeRelation(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+	@MessageMapping("/deleteComponent.{idmodelo}")
+	public void removeRelation(Componente componente,@DestinationVariable int idmodelo) {
 		try {
-			rectangles.delete(rectangulo);
-			ms.convertAndSend("/shape/deleteRectangle."+idmodelo,rectangulo);
+			components.delete(componente);
+			ms.convertAndSend("/shape/deleteRectangle."+idmodelo,componente);
 		} catch (ModelerException e) {
 			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
 		}

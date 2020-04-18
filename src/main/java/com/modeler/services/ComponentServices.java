@@ -31,7 +31,12 @@ public class ComponentServices {
 
 	public void update(Componente r) throws ModelerException {
 		if(getComponenteById(r.getId())==null) throw new ModelerException(ModelerException.noExisteComponente);
-		
+		componenteRepository.save(r);
+	}
+
+	public void delete(Componente componente) throws ModelerException{
+		if(getComponenteById(componente.getId())==null) throw new ModelerException(ModelerException.noExisteComponente);
+		componenteRepository.delete(componente);
 	}
 
 }
