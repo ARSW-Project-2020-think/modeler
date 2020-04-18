@@ -2,6 +2,7 @@ package com.modeler.services;
 
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Componente;
+import com.modeler.model.Ovalo;
 import com.modeler.repositories.ComponenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ComponentServices {
 
     public void addComponent(Componente componente) throws ModelerException {
         for(Componente c: componenteRepository.getComponenteByNombreEquals(componente.getNombre())) {
-            if(componente.getModelo().equals(c.getModelo())) throw new ModelerException(ModelerException.claseInvalida);
+            if(componente.getModelo().equals(c.getModelo()) && c.equals(componente)) throw new ModelerException(ModelerException.componenteInvalido);
         }
         componenteRepository.save(componente);
     }
@@ -38,5 +39,6 @@ public class ComponentServices {
 		if(getComponenteById(componente.getId())==null) throw new ModelerException(ModelerException.noExisteComponente);
 		componenteRepository.delete(componente);
 	}
+
 
 }

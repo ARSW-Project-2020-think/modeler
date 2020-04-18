@@ -14,6 +14,7 @@ import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Componente;
 import com.modeler.model.Metodo;
 import com.modeler.model.Modelo;
+import com.modeler.model.Ovalo;
 import com.modeler.model.Rectangulo;
 import com.modeler.repositories.MethodRepository;
 import com.modeler.services.ComponentServices;
@@ -127,6 +128,20 @@ public class WebSocketController {
 			Metodo m = metodos.getModeloById(metodo.getId());
 			metodos.delete(m);
 			ms.convertAndSend("/shape/deleteMethod."+idmodelo,m);
+		} catch (ModelerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@MessageMapping("/newOval.{idmodelo}")
+	public void addOval(Ovalo oval,@DestinationVariable int idmodelo) {
+		try {
+			Modelo m = services.getModelById(idmodelo);
+			Ovalo ov = new Ovalo(oval.getX(),oval.getY(),m);
+			components.addComponent(ov);
+			m = services.getModelById(idmodelo);
+			ms.convertAndSend("/shape/newOval."+idmodelo,m.getComponente(ov));
 		} catch (ModelerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

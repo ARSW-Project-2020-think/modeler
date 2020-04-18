@@ -14,6 +14,7 @@ public class ModelerException extends Exception{
 	public static String metodoExistente = "Ya existe un metodo con este nombre";
 	public static String noExisteMetodo ="No existe este metodo";
 	public static String noExisteComponente="No existe este componente";
+	public static String componenteInvalido = "Este componente es invalido";
 
 	public ModelerException(String ms) {
 		super(ms);

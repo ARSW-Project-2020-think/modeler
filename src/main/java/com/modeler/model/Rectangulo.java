@@ -51,6 +51,13 @@ public class Rectangulo extends Componente{
 	public int hashCode() {
 		return 7;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Rectangulo)) return false;
+		return super.equals(obj) || super.getNombre().equals(((Rectangulo) obj).getNombre());
+	}
+	
 	public Metodo getMetodo(String text) {
 		for(Metodo m:metodos) {
 			if(m.getMetodo().equals(text)) return m;

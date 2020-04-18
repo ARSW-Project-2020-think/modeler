@@ -153,5 +153,12 @@ public class Modelo {
 		}
 		return null;
 	}
+
+	public Componente getComponente(Componente ov) {
+		for(Componente c: componentes) {
+			if(c.equals(ov)) return c;
+		}
+		return null;
+	}
 	
 }
