@@ -2,6 +2,8 @@ package com.modeler.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.modeler.exceptions.ModelerException;
 
 import javax.persistence.*;
@@ -11,7 +13,12 @@ import java.util.Set;
 @Entity
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Rectangulo.class, name = "Rectangulo"),
 
+        @JsonSubTypes.Type(value = Ovalo.class, name = "Ovalo") }
+)
 public abstract class Componente {
 
     @Id

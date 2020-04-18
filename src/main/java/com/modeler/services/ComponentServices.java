@@ -4,9 +4,11 @@ import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Componente;
 import com.modeler.repositories.ComponenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ComponentServices {
 
     @Autowired
@@ -26,5 +28,10 @@ public class ComponentServices {
     public Componente getComponenteById(int id) throws ModelerException {
         return componenteRepository.findById(id).orElseThrow(()-> new ModelerException(ModelerException.claseInexistente));
     }
+
+	public void update(Componente r) throws ModelerException {
+		if(getComponenteById(r.getId())==null) throw new ModelerException(ModelerException.noExisteComponente);
+		
+	}
 
 }

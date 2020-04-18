@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.modeler.exceptions.ModelerException;
+import com.modeler.model.Componente;
 import com.modeler.model.Metodo;
 import com.modeler.model.Modelo;
 import com.modeler.model.Rectangulo;
 import com.modeler.repositories.MethodRepository;
+import com.modeler.services.ComponentServices;
 import com.modeler.services.LineServices;
 import com.modeler.services.MethodServices;
 import com.modeler.services.ModelServices;
@@ -31,6 +33,8 @@ public class WebSocketController {
 	private LineServices lines;
 	@Autowired
 	private MethodServices metodos;
+	@Autowired
+	private ComponentServices components;
 	@Autowired
 	private SimpMessagingTemplate ms;
 	
@@ -63,15 +67,15 @@ public class WebSocketController {
 		}
 	}
 	@MessageMapping("/newrelation.{idmodelo}")
-	public void addLine(List<Rectangulo> relacion,@DestinationVariable int idmodelo) {
+	public void addLine(List<Componente> relacion,@DestinationVariable int idmodelo) {
 			try {
-				Rectangulo r = rectangles.getRectangleById(relacion.get(0).getId());
-				Rectangulo r2 = rectangles.getRectangleById(relacion.get(1).getId());
+				Componente r = components.getComponenteById(relacion.get(0).getId());
+				Componente r2 = rectangles.getRectangleById(relacion.get(1).getId());
 				r.addComponente(r2);
-				rectangles.update(r);
+				components.update(r);
 				r2.addComponente(r);
 				System.out.println("Creo relacion");				
-				ms.convertAndSend("/shape/newrelation."+idmodelo,new Rectangulo[] {r,r2});
+				ms.convertAndSend("/shape/newrelation."+idmodelo,new Componente[] {r,r2});
 			} catch (ModelerException e) {
 				System.out.println("Hubo un error "+e.getMessage());
 			}
