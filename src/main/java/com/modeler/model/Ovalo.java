@@ -24,6 +24,11 @@ public class Ovalo extends Componente {
 		this(x,y,modelo);
 		setNombre(nombre);
 	}
+	public Ovalo(String nombre, int x, int y,int ancho,int alto ,Modelo modelo) {
+		this(nombre,x,y,modelo);
+		setAncho(ancho);
+		setAlto(alto);
+	}
 
 	@Override
     public int hashCode() {
@@ -37,6 +42,6 @@ public class Ovalo extends Componente {
 	
 	@Override
 	public Object clone() {
-		return new Ovalo(super.getNombre(),super.getX(),super.getY(),super.getModelo());
+		return new Ovalo(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
 	}
 }
