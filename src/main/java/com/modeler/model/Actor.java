@@ -13,4 +13,9 @@ public class Actor extends Componente{
 	public Actor(String nombre, int x, int y,int ancho,int alto) {
 		super(nombre,x,y,ancho,alto);
 	}
+	
+	@Override
+	public Object clone() {
+		return new Actor(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto());
+	}
 }
