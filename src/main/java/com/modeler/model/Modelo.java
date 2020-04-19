@@ -36,9 +36,6 @@ public class Modelo {
 	private Version version;
 
 
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="modelo",cascade=CascadeType.ALL)
-	private List<Rectangulo> rectangulos;
-
 	@OneToMany(mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Componente> componentes;
 	
@@ -93,21 +90,6 @@ public class Modelo {
 		return m.getId()==id;
 	}
 
-	public Rectangulo getRectangulo(String nombreRectangulo) {
-		for(Rectangulo r: rectangulos) {
-			if(r.getNombre().equals(nombreRectangulo)) return r;
-		}
-		return null;
-	}
-
-	public List<Rectangulo> getRectangulos() {
-		return rectangulos;
-	}
-
-	public void setRectangulos(List<Rectangulo> rectangulos) {
-		this.rectangulos = rectangulos;
-	}
-
 	public String getTipo() {
 		return tipo;
 	}
@@ -116,11 +98,6 @@ public class Modelo {
 		this.tipo = tipo;
 	}
 
-	public void addRectangulo(Rectangulo rectangulo) {
-		rectangulos.add(rectangulo);
-		rectangulo.setModelo(this);
-		
-	}
 
 	public List<Linea> getLineas() {
 		return lineas;

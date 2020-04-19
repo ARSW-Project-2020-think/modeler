@@ -19,7 +19,9 @@ import java.util.Set;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Rectangulo.class, name = "Rectangulo"),
 
-        @JsonSubTypes.Type(value = Ovalo.class, name = "Ovalo") }
+        @JsonSubTypes.Type(value = Ovalo.class, name = "Ovalo"),
+        
+        @JsonSubTypes.Type(value = Actor.class, name = "Actor")}
 )
 public abstract class Componente {
 

@@ -85,7 +85,7 @@ public class Version {
 
 	public Rectangulo getRectangulo(String nombreModelo, String nombreRectangulo) {
 		Modelo m = getModelo(nombreModelo);
-		return m.getRectangulo(nombreRectangulo);
+		return null;
 	}
 	
 }
