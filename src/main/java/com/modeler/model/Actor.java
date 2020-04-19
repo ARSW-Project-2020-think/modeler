@@ -22,4 +22,10 @@ public class Actor extends Componente{
 	public Object clone() {
 		return new Actor(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
 	}
+	
+	@Override
+	public boolean equals(Object ob) {
+		if(!(ob instanceof Actor)) return false;
+		return super.getId()==((Actor) ob).getId() || getNombre().equals(super.getNombre());
+	}
 }
