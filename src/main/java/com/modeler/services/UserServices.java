@@ -49,7 +49,7 @@ public class UserServices {
 
 	public boolean esColaborador(String autor,String project, List<Proyecto> proyectosCompartidos) {
 		for (Proyecto p: proyectosCompartidos) {
-			if(p.getNombre().equals(project)&&p.getAutor().equals(autor)){
+			if(p.getNombre().equals(project)&& p.getAutor().getUsername().equals(autor)){
 				return true;
 			}
 		}
