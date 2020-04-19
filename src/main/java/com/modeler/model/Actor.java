@@ -26,6 +26,6 @@ public class Actor extends Componente{
 	@Override
 	public boolean equals(Object ob) {
 		if(!(ob instanceof Actor)) return false;
-		return super.getId()==((Actor) ob).getId() || getNombre().equals(super.getNombre());
+		return super.equals(ob) || getNombre().equals(super.getNombre());
 	}
 }
