@@ -156,7 +156,6 @@ public abstract class Componente {
     
     public void removerComponenteRelacion(Componente componente) {
     	if(getComponente(componente)!=null) {
-    		System.out.println("REMOVIO RELACION");
     		relaciones.remove(componente);
     	}
     }

@@ -102,7 +102,7 @@ public class WebSocketController {
 	public void removeRelation(Componente componente,@DestinationVariable int idmodelo) {
 		try {
 			components.delete(componente);
-			ms.convertAndSend("/shape/deleteRectangle."+idmodelo,componente);
+			ms.convertAndSend("/shape/deleteComponent."+idmodelo,componente);
 		} catch (ModelerException e) {
 			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
 		}
