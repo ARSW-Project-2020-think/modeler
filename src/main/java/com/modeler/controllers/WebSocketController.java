@@ -1,5 +1,7 @@
 package com.modeler.controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,7 @@ public class WebSocketController {
 				components.update(r);
 				r2.addComponente(r);
 				System.out.println("Creo relacion");				
+				System.out.println("BORRO Y LLEGA ACA");
 				ms.convertAndSend("/shape/newrelation."+idmodelo,new Componente[] {r,r2});
 			} catch (ModelerException e) {
 				System.out.println("Hubo un error "+e.getMessage());
@@ -99,9 +102,18 @@ public class WebSocketController {
 		}
 	}
 	@MessageMapping("/deleteComponent.{idmodelo}")
-	public void removeRelation(Componente componente,@DestinationVariable int idmodelo) {
+	public void deleteComponent(Componente componente,@DestinationVariable int idmodelo) {
 		try {
-			components.delete(componente);
+			Componente r1 = components.getComponenteById(componente.getId());
+			Modelo m = services.getModelById(idmodelo);
+			for (Componente c: m.getComponentes()) {
+				c.removerComponenteRelacion(r1);
+				components.update(c);
+			}
+			r1.getComponentesRelacionados().clear();
+			r1.getRelaciones().clear();
+			components.update(r1);
+			components.delete(componente);			
 			ms.convertAndSend("/shape/deleteComponent."+idmodelo,componente);
 		} catch (ModelerException e) {
 			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
