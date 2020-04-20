@@ -19,6 +19,11 @@ public class Actor extends Componente{
 	}
 	
 	@Override
+    public int hashCode() {
+    	return 12;
+    }
+	
+	@Override
 	public Object clone() {
 		return new Actor(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
 	}
