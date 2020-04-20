@@ -70,7 +70,7 @@ public class WebSocketController {
 	public void addLine(List<Componente> relacion,@DestinationVariable int idmodelo) {
 			try {
 				Componente r = components.getComponenteById(relacion.get(0).getId());
-				Componente r2 = rectangles.getRectangleById(relacion.get(1).getId());
+				Componente r2 = components.getComponenteById(relacion.get(1).getId());
 				r.addComponente(r2);
 				components.update(r);
 				r2.addComponente(r);
