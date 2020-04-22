@@ -12,6 +12,8 @@
 
 [CLASS MODELER LINK](https://class-modeler.herokuapp.com/)
 
+[Requerimientos no funcionales](https://github.com/ARSW-Project-2020-think/modeler/wiki/Escenarios-No-Funcionales)
+
 ## Credenciales de base de datos
 
 Host: ec2-184-72-235-80.compute-1.amazonaws.com
