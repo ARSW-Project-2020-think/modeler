@@ -141,9 +141,10 @@ public class WebSocketController {
 	public void deleteAtribute(Atributo atributo,@DestinationVariable int idmodelo) {
 		try {
 			Atributo a = atributes.getAtributoById(atributo.getId());
-			atributes.delete(a);
 			Rectangulo r = rectangles.getRectangleById(a.getRectangulo().getId());
-			ms.convertAndSend("/shape/deleteAtribute."+idmodelo,r);
+			atributes.delete(a);
+			Rectangulo r2 = rectangles.getRectangleById(r.getId());
+			ms.convertAndSend("/shape/deleteAtribute."+idmodelo,r2);
 		} catch (ModelerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,9 +169,10 @@ public class WebSocketController {
 	public void deleteMethod(Metodo metodo,@DestinationVariable int idmodelo) {
 		try {
 			Metodo m = metodos.getMetodoById(metodo.getId());
-			metodos.delete(m);
 			Rectangulo r = rectangles.getRectangleById(m.getRectangulo().getId());
-			ms.convertAndSend("/shape/deleteMethod."+idmodelo,r);
+			metodos.delete(m);
+			Rectangulo r2 = rectangles.getRectangleById(r.getId());
+			ms.convertAndSend("/shape/deleteMethod."+idmodelo,r2);
 		} catch (ModelerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
