@@ -16,7 +16,9 @@ public class Atributo {
     private Rectangulo rectangulo;
 
     private String atributo;
-
+    public Atributo() {
+    	
+    }
     public Atributo(String atributo, Rectangulo rectangulo) {
 		this.atributo = atributo;
 		this.rectangulo = rectangulo;
