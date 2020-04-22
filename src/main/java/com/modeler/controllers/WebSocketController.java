@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.modeler.exceptions.ModelerException;
+import com.modeler.model.Atributo;
 import com.modeler.model.Componente;
 import com.modeler.model.Metodo;
 import com.modeler.model.Modelo;
@@ -119,6 +120,22 @@ public class WebSocketController {
 			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
 		}
 	}
+	@MessageMapping("/newAtribute.{idmodelo}")
+	public void addAtribute(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
+		try {
+			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
+			Atributo m = r.getAtributos().get(r.getAtributos().size()-1);
+			Atributo m2 = new Atributo(m.getAtributo(),r);
+			r.addAtributo(m2);
+			rectangles.update(r);
+			ms.convertAndSend("/shape/newAtribute."+idmodelo,r);
+		} catch (ModelerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@MessageMapping("/newMethod.{idmodelo}")
 	public void addMethod(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
@@ -126,39 +143,22 @@ public class WebSocketController {
 			Metodo m = r.getMetodos().get(r.getMetodos().size()-1);
 			Metodo m2 = new Metodo(m.getMetodo(),r);
 			r.addMetodo(m2);
-			r = rectangles.getRectangleById(rectangulo.getId());
+			rectangles.update(r);
 			ms.convertAndSend("/shape/newMethod."+idmodelo,r);
 		} catch (ModelerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	@MessageMapping("/deleteMethod.{idmodelo}")
 	public void deleteMethod(Metodo metodo,@DestinationVariable int idmodelo) {
 		try {
-			Metodo m = metodos.getModeloById(metodo.getId());
+			Metodo m = metodos.getMetodoById(metodo.getId());
 			metodos.delete(m);
-			ms.convertAndSend("/shape/deleteMethod."+idmodelo,m);
+			Rectangulo r = rectangles.getRectangleById(m.getRectangulo().getId());
+			ms.convertAndSend("/shape/deleteMethod."+idmodelo,r);
 		} catch (ModelerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	@MessageMapping("/newOval.{idmodelo}")
-	public void addOval(Ovalo oval,@DestinationVariable int idmodelo) {
-		try {
-			Modelo m = services.getModelById(idmodelo);
-			Ovalo ov = new Ovalo(oval.getX(),oval.getY(),m);
-			components.addComponent(ov);
-			m = services.getModelById(idmodelo);
-			ms.convertAndSend("/shape/newOval."+idmodelo,m.getComponente(ov));
-		} catch (ModelerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
 }

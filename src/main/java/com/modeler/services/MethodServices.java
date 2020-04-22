@@ -15,7 +15,7 @@ public class MethodServices {
 		if(repo.getOne(m.getId())==null) throw new ModelerException(ModelerException.noExisteMetodo);
 		repo.delete(m);
 	}
-	public Metodo getModeloById(int id) {
+	public Metodo getMetodoById(int id) {
 		return repo.getOne(id);
 	}
 }

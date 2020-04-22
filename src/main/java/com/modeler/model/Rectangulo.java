@@ -72,4 +72,15 @@ public class Rectangulo extends Componente{
 	public Object clone() {
 		return new Rectangulo(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
 	}
+	public Atributo getAtributo(String atributo) {
+		for(Atributo a: atributos) {
+			if(a.getAtributo().equals(atributo)) return a;
+		}
+		return null;
+	}
+	public void addAtributo(Atributo atributo) throws ModelerException {
+		if(getAtributo(atributo.getAtributo())!=null) throw new ModelerException(ModelerException.atributoInvalido);
+		atributos.add(atributo);
+		
+	}
 }

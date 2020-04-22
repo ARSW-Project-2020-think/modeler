@@ -17,7 +17,12 @@ public class Atributo {
 
     private String atributo;
 
-    public int getId() {
+    public Atributo(String atributo, Rectangulo rectangulo) {
+		this.atributo = atributo;
+		this.rectangulo = rectangulo;
+	}
+
+	public int getId() {
         return id;
     }
 
