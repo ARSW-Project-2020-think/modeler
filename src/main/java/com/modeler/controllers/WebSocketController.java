@@ -137,6 +137,18 @@ public class WebSocketController {
 			e.printStackTrace();
 		}
 	}
+	@MessageMapping("/deleteAtribute.{idmodelo}")
+	public void deleteAtribute(Atributo atributo,@DestinationVariable int idmodelo) {
+		try {
+			Atributo a = atributes.getAtributoById(atributo.getId());
+			atributes.delete(a);
+			Rectangulo r = rectangles.getRectangleById(a.getRectangulo().getId());
+			ms.convertAndSend("/shape/deleteAtribute."+idmodelo,r);
+		} catch (ModelerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 	@MessageMapping("/newMethod.{idmodelo}")
@@ -144,9 +156,9 @@ public class WebSocketController {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
 			Metodo m = rectangulo.getMetodos().get(rectangulo.getMetodos().size()-1);
-			Metodo m2 = new Metodo(m.getMetodo());
-			r.addMetodo(m2);
-			rectangles.update(r);
+			Metodo m2 = new Metodo(m.getMetodo(),r);
+			metodos.save(m2,r);
+			r = rectangles.getRectangleById(rectangulo.getId());
 			ms.convertAndSend("/shape/newMethod."+idmodelo,r);
 		} catch (ModelerException e) {
 			e.printStackTrace();

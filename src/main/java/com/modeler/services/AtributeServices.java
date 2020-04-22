@@ -16,4 +16,12 @@ public class AtributeServices {
 		if(r.getAtributo(at.getAtributo())!=null) throw new ModelerException(ModelerException.atributoInvalido);
 		repo.save(at);
 	}
+	public Atributo getAtributoById(int id) {
+		return repo.getOne(id);
+	}
+	public void delete(Atributo a) throws ModelerException {
+		if(getAtributoById(a.getId())==null) throw new ModelerException(ModelerException.atributoInvalido);
+		repo.delete(a);
+		
+	}
 }

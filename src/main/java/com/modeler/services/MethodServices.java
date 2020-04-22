@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Metodo;
+import com.modeler.model.Rectangulo;
 import com.modeler.repositories.MethodRepository;
 
 @Service
@@ -17,5 +18,9 @@ public class MethodServices {
 	}
 	public Metodo getMetodoById(int id) {
 		return repo.getOne(id);
+	}
+	public void save(Metodo metodo, Rectangulo rectangulo) throws ModelerException {
+		if(rectangulo.getMetodo(metodo.getMetodo())!=null) throw new ModelerException("Existe un metodo con este nombre");
+		repo.save(metodo);
 	}
 }
