@@ -124,7 +124,7 @@ public class WebSocketController {
 	public void addAtribute(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
-			Atributo m = r.getAtributos().get(r.getAtributos().size()-1);
+			Atributo m = rectangulo.getAtributos().get(rectangulo.getAtributos().size()-1);
 			Atributo m2 = new Atributo(m.getAtributo(),r);
 			r.addAtributo(m2);
 			rectangles.update(r);
@@ -140,7 +140,7 @@ public class WebSocketController {
 	public void addMethod(Rectangulo rectangulo,@DestinationVariable int idmodelo) {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
-			Metodo m = r.getMetodos().get(r.getMetodos().size()-1);
+			Metodo m = rectangulo.getMetodos().get(rectangulo.getMetodos().size()-1);
 			Metodo m2 = new Metodo(m.getMetodo(),r);
 			r.addMetodo(m2);
 			rectangles.update(r);
