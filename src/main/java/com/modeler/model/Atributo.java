@@ -22,6 +22,10 @@ public class Atributo {
 		this.rectangulo = rectangulo;
 	}
 
+	public Atributo(String atributo) {
+		this.atributo=atributo;
+	}
+
 	public int getId() {
         return id;
     }

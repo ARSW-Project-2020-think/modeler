@@ -20,6 +20,7 @@ import com.modeler.model.Modelo;
 import com.modeler.model.Ovalo;
 import com.modeler.model.Rectangulo;
 import com.modeler.repositories.MethodRepository;
+import com.modeler.services.AtributeServices;
 import com.modeler.services.ComponentServices;
 import com.modeler.services.LineServices;
 import com.modeler.services.MethodServices;
@@ -39,6 +40,8 @@ public class WebSocketController {
 	private MethodServices metodos;
 	@Autowired
 	private ComponentServices components;
+	@Autowired
+	private AtributeServices atributes;
 	@Autowired
 	private SimpMessagingTemplate ms;
 	
@@ -126,8 +129,8 @@ public class WebSocketController {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
 			Atributo m = rectangulo.getAtributos().get(rectangulo.getAtributos().size()-1);
 			Atributo m2 = new Atributo(m.getAtributo(),r);
-			r.addAtributo(m2);
-			rectangles.update(r);
+			atributes.save(m2, r);
+			r = rectangles.getRectangleById(rectangulo.getId());
 			ms.convertAndSend("/shape/newAtribute."+idmodelo,r);
 		} catch (ModelerException e) {
 			// TODO Auto-generated catch block
@@ -141,7 +144,7 @@ public class WebSocketController {
 		try {
 			Rectangulo r = rectangles.getRectangleById(rectangulo.getId());
 			Metodo m = rectangulo.getMetodos().get(rectangulo.getMetodos().size()-1);
-			Metodo m2 = new Metodo(m.getMetodo(),r);
+			Metodo m2 = new Metodo(m.getMetodo());
 			r.addMetodo(m2);
 			rectangles.update(r);
 			ms.convertAndSend("/shape/newMethod."+idmodelo,r);
