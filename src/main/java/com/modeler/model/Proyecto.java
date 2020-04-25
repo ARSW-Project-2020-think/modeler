@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.modeler.exceptions.ModelerException;
 
 @Entity
 @Table
@@ -137,6 +138,16 @@ public class Proyecto {
 	public void addColaborador(Usuario usuario) {
 		colaboradores.add(usuario);
 		
+	}
+	public void removeColaborator(Usuario usuario) throws ModelerException {
+		if(getColaborador(usuario)==null) throw new ModelerException("No existe");
+		colaboradores.remove(usuario);
+	}
+	private Usuario getColaborador(Usuario usuario) {
+		for(Usuario u: colaboradores) {
+			if(u.equals(usuario)) return u;
+		}
+		return null;
 	}
 	
 }

@@ -204,4 +204,17 @@ public class ProjectController {
 		p.getColaboradores();
 		return new ResponseEntity<>(p.getColaboradores(),HttpStatus.ACCEPTED);
 	}
+	
+	@RequestMapping(value="/{username}/colaborator/project/{projectname}",method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteColaborator(@PathVariable String username,@PathVariable String project,@RequestBody Usuario usuario) {
+		try {
+			Usuario u = userServices.getUsuarioByUsername(username);
+			Proyecto p = u.getProyectoByName(project);
+			p.removeColaborator(usuario);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 }

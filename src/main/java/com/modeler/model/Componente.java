@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.modeler.exceptions.ModelerException;
+
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
@@ -45,7 +47,8 @@ public abstract class Componente {
     private Modelo modelo;
     
     @JsonIgnoreProperties("relaciones")
-    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.LAZY,targetEntity = Componente.class)
+    @ManyToMany(fetch=FetchType.LAZY,targetEntity = Componente.class)
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     @JoinTable(name="Relacion",
             joinColumns={@JoinColumn(name="componente_id")},
             inverseJoinColumns={@JoinColumn(name="componente2_id")})

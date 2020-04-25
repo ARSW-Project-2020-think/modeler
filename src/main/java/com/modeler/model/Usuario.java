@@ -1,7 +1,6 @@
 package com.modeler.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -152,6 +151,11 @@ public class Usuario {
 		if(isShareProyecto(p)) throw new ModelerException(ModelerException.proyectoYaCompartido);
 		proyectosCompartidos.add(p);
 		p.addColaborador(this);
+	}
+	
+	@Override
+	public int hashCode() {
+		return 70;
 	}
 	
 

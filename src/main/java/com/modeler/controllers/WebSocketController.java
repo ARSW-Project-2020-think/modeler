@@ -109,11 +109,11 @@ public class WebSocketController {
 	public void deleteComponent(Componente componente,@DestinationVariable int idmodelo) {
 		try {
 			Componente r1 = components.getComponenteById(componente.getId());
-			Modelo m = services.getModelById(idmodelo);
+			/*Modelo m = services.getModelById(idmodelo);
 			for (Componente c: m.getComponentes()) {
 				c.removerComponenteRelacion(r1);
 				components.update(c);
-			}
+			}*/
 			r1.getComponentesRelacionados().clear();
 			r1.getRelaciones().clear();
 			components.update(r1);
