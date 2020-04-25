@@ -157,6 +157,11 @@ public class Usuario {
 	public int hashCode() {
 		return 70;
 	}
+	public void removeProyectoColaboracion(Proyecto p) throws ModelerException {
+		if(!isShareProyecto(p)) throw new ModelerException(ModelerException.proyectoYaCompartido);
+		proyectosCompartidos.remove(p);
+		
+	}
 	
 
 	
