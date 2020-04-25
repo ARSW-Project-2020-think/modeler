@@ -39,4 +39,12 @@ public class ProjectServices {
 	public List<Proyecto> getProjectsByusuario(String username) {
 		return repositorio.getProjectsByusuario(username);
 	}
+
+
+	public void update(Proyecto p) {
+		if(repositorio.existsById(p.getId())) {
+			repositorio.save(p);
+		}
+		
+	}
 }

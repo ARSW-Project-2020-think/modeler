@@ -211,6 +211,7 @@ public class ProjectController {
 			Usuario u = userServices.getUsuarioByUsername(username);
 			Proyecto p = u.getProyectoByName(projectname);
 			p.removeColaborator(usuario);
+			projectServices.update(p);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} catch (ModelerException e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

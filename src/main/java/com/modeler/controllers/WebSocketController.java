@@ -1,7 +1,5 @@
 package com.modeler.controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +7,13 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Atributo;
 import com.modeler.model.Componente;
 import com.modeler.model.Metodo;
 import com.modeler.model.Modelo;
-import com.modeler.model.Ovalo;
 import com.modeler.model.Rectangulo;
-import com.modeler.repositories.MethodRepository;
 import com.modeler.services.AtributeServices;
 import com.modeler.services.ComponentServices;
 import com.modeler.services.LineServices;
