@@ -2,6 +2,7 @@ package com.modeler.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class Version {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_proyecto")
 	private Proyecto proyecto;
-	@OneToMany(mappedBy="version")
+	@OneToMany(mappedBy="version",cascade=CascadeType.ALL)
 	private List<Modelo> modelos;
 	
 	public Version() {

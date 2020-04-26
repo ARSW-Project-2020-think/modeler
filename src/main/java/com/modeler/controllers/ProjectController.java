@@ -66,10 +66,14 @@ public class ProjectController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
+	
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> getAll(){		
 		return new ResponseEntity<>(projectServices.getAll(),HttpStatus.OK);
 	}
+	
+	
 	
 	
 	@RequestMapping(value="/{username}/project",method=RequestMethod.GET)
@@ -151,6 +155,8 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo/{modelname}/rectangle",method=RequestMethod.PUT)
 	public ResponseEntity<?> updateRectangle(@PathVariable String username,@PathVariable String project,@PathVariable int version,@PathVariable String modelname,@RequestBody Rectangulo rectangulo,Authentication auth){
 		List<Proyecto> proyectosCompartidos= userServices.getUsuario(auth.getName()).getProyectosCompartidos();
@@ -172,6 +178,7 @@ public class ProjectController {
 		}
 	}
 
+	
 	@RequestMapping(value="/{username}/projectshared",method=RequestMethod.GET)
 	public ResponseEntity<?> getShareProjects(@PathVariable String username,Authentication auth) {
 		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
@@ -179,6 +186,8 @@ public class ProjectController {
 		}
 		return new ResponseEntity<>(userServices.getUsuarioByUsername(username).getProyectosCompartidos(),HttpStatus.ACCEPTED);
 	}
+	
+	
 	@RequestMapping(value="/{username}/share/{to}/project/{projectname}",method = RequestMethod.PUT)
 	public ResponseEntity<?> addShareProject(@PathVariable String username,@PathVariable String to,@PathVariable String projectname ,Authentication auth){
 		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
@@ -195,6 +204,8 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 	@RequestMapping(value="/{username}/colaborators/project/{projectname}",method = RequestMethod.GET)
 	public ResponseEntity<?> getCollaborators(@PathVariable String username,@PathVariable String projectname,Authentication auth){
 		if (!auth.getName().equals(userServices.getUsuarioByUsername(username).getCorreo())) {
@@ -205,6 +216,8 @@ public class ProjectController {
 		return new ResponseEntity<>(p.getColaboradores(),HttpStatus.ACCEPTED);
 	}
 	
+	
+	
 	@RequestMapping(value="/{username}/colaborator/project/{projectname}",method=RequestMethod.DELETE)
 	public ResponseEntity<?> deleteColaborator(@PathVariable String username,@PathVariable String projectname,@RequestBody Usuario usuario) {
 		try {
@@ -213,6 +226,18 @@ public class ProjectController {
 			u = userServices.getUsuarioByUsername(usuario.getUsername());
 			u.removeProyectoColaboracion(p);
 			userServices.update(u);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	@RequestMapping(value="/{username}/project",method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteProject(@PathVariable String username,@RequestBody Proyecto proyecto,Authentication auth){
+		try {
+			Proyecto p = projectServices.getProjectById(proyecto.getId());
+			if(p==null || !p.getAutor().getUsername().equals(username))
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			projectServices.delete(p);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} catch (ModelerException e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

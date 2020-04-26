@@ -47,4 +47,16 @@ public class ProjectServices {
 		}
 		
 	}
+
+
+	public Proyecto getProjectById(int id) {
+		return repositorio.getOne(id);
+	}
+
+
+	public void delete(Proyecto p) throws ModelerException{
+		if(getProjectById(p.getId())==null) throw new ModelerException("No existe proyecto");
+		repositorio.delete(p);
+		
+	}
 }
