@@ -27,6 +27,7 @@ public class Usuario {
 	private String username;
 	
 	@Column
+	@JsonIgnore
 	private String password;
 	
 	@JsonIgnore
