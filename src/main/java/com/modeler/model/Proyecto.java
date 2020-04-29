@@ -150,7 +150,7 @@ public class Proyecto {
 		}
 		return null;
 	}
-	public Version getLastVersion() {
+	public Version findLastVersion() {
 		Version last = null;
 		for(Version v:versiones) {
 			if(last==null || last.getNumero()<v.getNumero()) {
