@@ -47,12 +47,12 @@ public class WebSocketController {
 				Componente cm = (Componente) componente.clone(); 
 				components.addComponent(cm);
 				ms.convertAndSend("/shape/newcomponent."+idmodelo,services.getModelById(idmodelo).getComponente(componente));
-				System.out.println("-----------  -------- Salioo ");
+				//System.out.println("-----------  -------- Salioo ");
 			} catch (ModelerException e) {
-				System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());
+				//System.out.println(">>>>>>>>>>>>>>><< Hubo un error "+e.getMessage());
 				e.printStackTrace();
 			}
-			System.out.println("entro");
+			//System.out.println("entro");
 	}
 	@MessageMapping("/updatecomponent.{idmodelo}")
 	public void update(Componente component,@DestinationVariable int idmodelo) {
@@ -74,11 +74,11 @@ public class WebSocketController {
 				r.addComponente(r2);
 				components.update(r);
 				r2.addComponente(r);
-				System.out.println("Creo relacion");				
-				System.out.println("BORRO Y LLEGA ACA");
+				//System.out.println("Creo relacion");				
+				//System.out.println("BORRO Y LLEGA ACA");
 				ms.convertAndSend("/shape/newrelation."+idmodelo,new Componente[] {r,r2});
 			} catch (ModelerException e) {
-				System.out.println("Hubo un error "+e.getMessage());
+				//System.out.println("Hubo un error "+e.getMessage());
 			}
 		
 	}
@@ -114,7 +114,7 @@ public class WebSocketController {
 			components.delete(componente);			
 			ms.convertAndSend("/shape/deleteComponent."+idmodelo,componente);
 		} catch (ModelerException e) {
-			System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
+			//System.out.println(">>>>>>>>>>>>> error >>>>>>>>>>>><<<< "+e.getMessage()+"\n\n\n");
 		}
 	}
 	@MessageMapping("/newAtribute.{idmodelo}")

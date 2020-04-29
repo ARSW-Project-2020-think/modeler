@@ -80,12 +80,12 @@ public class ProjectController {
 	public ResponseEntity<?> getAllProjectsByUser(@PathVariable String username, Authentication auth){
 		Usuario u = userServices.getUsuarioByUsername(username);
 		if (!u.getCorreo().equals(auth.getName())) {
-			System.out.println("entro 1");
-			System.out.println(projectServices.getPublicProjectsByusuario(username));
+			//System.out.println("entro 1");
+			//System.out.println(projectServices.getPublicProjectsByusuario(username));
 			return new ResponseEntity<>(projectServices.getPublicProjectsByusuario(username),HttpStatus.OK);
 		}
-		System.out.println("entro 2");
-		System.out.println(u.getProyectos());
+		//System.out.println("entro 2");
+		//System.out.println(u.getProyectos());
 		return new ResponseEntity<>(u.getProyectos(),HttpStatus.OK);
 	}
 	
@@ -105,7 +105,7 @@ public class ProjectController {
 			modelServices.save(m);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (ModelerException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -114,10 +114,12 @@ public class ProjectController {
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo,Authentication auth){
 		Modelo m = modelServices.getModelById(modelo.getId());
-		if(m==null || modelo.getVersion().getNumero()!= version || !modelo.getVersion().getProyecto().getAutor().getUsername().equals(username)
+		
+		/*if(m==null || modelo.getVersion().getNumero()!= version || !modelo.getVersion().getProyecto().getAutor().getUsername().equals(username)
 				|| !modelo.getVersion().getProyecto().getAutor().getCorreo().equals(auth.getName())) {
+			System.out.println("NETRO 2");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		}*/
 		try {
 			modelServices.delete(m);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
