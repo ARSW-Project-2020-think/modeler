@@ -27,6 +27,13 @@ public class ModelServices {
 		return repo.findById(id).orElse(null);
 		
 	}
+
+
+	public void delete(Modelo m) throws ModelerException {
+		if(repo.getOne(m.getId())==null) throw new ModelerException("Modelo inexistente");
+		repo.delete(m);
+		
+	}
 	
 	
 }

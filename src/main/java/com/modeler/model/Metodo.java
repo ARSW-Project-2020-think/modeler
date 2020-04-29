@@ -53,4 +53,8 @@ public class Metodo {
     public void setMetodo(String metodo) {
         this.metodo = metodo;
     }
+    
+    public Metodo clone() {
+    	return new Metodo(this.metodo);
+    }
 }

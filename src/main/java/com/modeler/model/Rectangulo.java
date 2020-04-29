@@ -70,7 +70,21 @@ public class Rectangulo extends Componente{
 	}
 	@Override
 	public Object clone() {
-		return new Rectangulo(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
+		Rectangulo r = new Rectangulo(super.getNombre(),super.getX(),super.getY(),super.getAncho(),super.getAlto(),super.getModelo());
+		ArrayList<Atributo> atr = new ArrayList<Atributo>();
+		ArrayList<Metodo> mt = new ArrayList<Metodo>();
+		for(Atributo a:atributos) {
+			Atributo b = a.clone();
+			b.setRectangulo(r);
+			atr.add(b); 
+		}
+		for(Metodo m:metodos) {
+			Metodo m2 = m.clone();
+			mt.add(m2); 
+			m2.setRectangulo(r);
+		}
+		return r;
+		
 	}
 	public Atributo getAtributo(String atributo) {
 		for(Atributo a: atributos) {

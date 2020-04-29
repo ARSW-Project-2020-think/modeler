@@ -51,4 +51,8 @@ public class Atributo {
     public void setAtributo(String atributo) {
         this.atributo = atributo;
     }
+    
+    public Atributo clone() {
+    	return new Atributo(this.atributo);
+    }
 }

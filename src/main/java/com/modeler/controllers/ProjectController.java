@@ -111,6 +111,28 @@ public class ProjectController {
 		
 	}
 	
+	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteModelo(@PathVariable String username,@PathVariable String project,@PathVariable int version,@RequestBody Modelo modelo,Authentication auth){
+		Modelo m = modelServices.getModelById(modelo.getId());
+		if(m==null || modelo.getVersion().getNumero()!= version || !modelo.getVersion().getProyecto().getAutor().getUsername().equals(username)
+				|| !modelo.getVersion().getProyecto().getAutor().getCorreo().equals(auth.getName())) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		try {
+			modelServices.delete(m);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (ModelerException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value="/{username}/project/{project}/version/",method=RequestMethod.POST)
+	public ResponseEntity<?> addVersion(@PathVariable String username,@PathVariable String project){
+		Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(project);
+		Version v = p.getLastVersion();
+		Version v2 = v.clone();
+		return null;
+	}
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo",method=RequestMethod.GET)
 	public ResponseEntity<?> getModelos(@PathVariable String username,@PathVariable String project,@PathVariable int version,Authentication auth){

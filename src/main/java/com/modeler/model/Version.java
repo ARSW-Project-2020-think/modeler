@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -88,5 +89,15 @@ public class Version {
 		Modelo m = getModelo(nombreModelo);
 		return null;
 	}
-	
+	public Version clone() {
+		Version v =  new Version();
+		v.setProyecto(proyecto);
+		ArrayList<Modelo> ms = new ArrayList<Modelo>();
+		for(Modelo m:modelos) {
+			Modelo m2 = m.clone(); 
+			ms.add(m2);
+			m2.setVersion(v);
+		}
+		return v;
+	}
 }

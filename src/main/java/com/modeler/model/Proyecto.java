@@ -150,5 +150,14 @@ public class Proyecto {
 		}
 		return null;
 	}
+	public Version getLastVersion() {
+		Version last = null;
+		for(Version v:versiones) {
+			if(last==null || last.getNumero()<v.getNumero()) {
+				last = v;
+			}
+		}
+		return last;
+	}
 	
 }

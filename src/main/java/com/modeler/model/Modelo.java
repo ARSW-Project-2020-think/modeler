@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -136,6 +137,17 @@ public class Modelo {
 			if(c.equals(ov)) return c;
 		}
 		return null;
+	}
+	
+	public Modelo clone() {
+		Modelo m = new Modelo();
+		ArrayList<Componente> cm = new ArrayList<>();
+		for(Componente c: componentes) {
+			Componente comp  = (Componente) c.clone(); 
+			cm.add(comp);
+			comp.setModelo(m);
+		}
+		return m;
 	}
 	
 }
