@@ -127,11 +127,13 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/{username}/project/{project}/version/",method=RequestMethod.POST)
-	public ResponseEntity<?> addVersion(@PathVariable String username,@PathVariable String project){
+	public ResponseEntity<?> addVersion(@PathVariable String username,@PathVariable String project,@RequestBody Version version){
 		Proyecto p = userServices.getUsuarioByUsername(username).getProyectoByName(project);
 		Version v = p.getLastVersion();
 		Version v2 = v.clone();
-		return null;
+		v2.setNumero(version.getNumero());
+		versionServices.save(v2);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value="/{username}/project/{project}/version/{version}/modelo",method=RequestMethod.GET)
