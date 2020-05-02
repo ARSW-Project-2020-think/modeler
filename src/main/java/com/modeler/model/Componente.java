@@ -10,6 +10,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ import java.util.Set;
         
         @JsonSubTypes.Type(value = Actor.class, name = "Actor")}
 )
-public abstract class Componente {
+public abstract class Componente implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -167,7 +168,22 @@ public abstract class Componente {
     	if(!(ob instanceof Componente)) return false;
     	return ((Componente)ob).getId() == id;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Componente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", ancho=" + ancho +
+                ", alto=" + alto +
+                ", modelo=" + modelo +
+                ", relaciones=" + relaciones +
+                ", componentesRelacionados=" + componentesRelacionados +
+                '}';
+    }
+
     @Override
     public Object clone() {
     	return null;

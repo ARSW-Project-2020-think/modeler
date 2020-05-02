@@ -8,12 +8,13 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.modeler.exceptions.ModelerException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(value="Rectangulo")
-public class Rectangulo extends Componente{
+public class Rectangulo extends Componente implements Serializable {
 	@OneToMany(mappedBy="rectangulo",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Metodo>metodos=new ArrayList<Metodo>();
 	@LazyCollection(LazyCollectionOption.FALSE)

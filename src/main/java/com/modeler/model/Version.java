@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class Version {
+public class Version implements Serializable {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

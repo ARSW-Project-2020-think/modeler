@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ import com.modeler.exceptions.ModelerException;
 
 @Entity
 @Table
-public class Proyecto {
+public class Proyecto implements Serializable {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

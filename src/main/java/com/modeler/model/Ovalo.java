@@ -2,10 +2,11 @@ package com.modeler.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue(value="Ovalo")
-public class Ovalo extends Componente {
+public class Ovalo extends Componente implements Serializable {
 		
     public Ovalo() {
     }

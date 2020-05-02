@@ -3,9 +3,10 @@ package com.modeler.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Metodo {
+public class Metodo  implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;

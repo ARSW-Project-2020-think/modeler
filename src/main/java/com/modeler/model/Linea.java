@@ -11,9 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+
 @Entity
 @Table
-public class Linea {
+public class Linea implements Serializable {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

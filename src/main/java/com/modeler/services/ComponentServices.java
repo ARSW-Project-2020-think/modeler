@@ -1,5 +1,6 @@
 package com.modeler.services;
 
+import com.modeler.cache.RedisComponenteCache;
 import com.modeler.exceptions.ModelerException;
 import com.modeler.model.Componente;
 import com.modeler.model.Ovalo;
@@ -14,6 +15,9 @@ public class ComponentServices {
 
     @Autowired
     ComponenteRepository componenteRepository;
+
+    @Autowired
+    RedisComponenteCache redisComponenteCache;
 
 
     public void addComponent(Componente componente) throws ModelerException {

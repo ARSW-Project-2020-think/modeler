@@ -1,5 +1,6 @@
 package com.modeler.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import com.modeler.exceptions.ModelerException;
 
 @Entity
 @Table
-public class Usuario {
+public class Usuario implements Serializable {
 	@Id
 	@Column
 	private String correo;
