@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.modeler.exceptions.ModelerException;
 
 @Entity
@@ -28,14 +30,11 @@ public class Usuario implements Serializable {
 	private String username;
 	
 	@Column
-	@JsonIgnore
 	private String password;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
 	
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="compartido",
 	joinColumns=@JoinColumn(name="id_usuario"),
@@ -68,11 +67,11 @@ public class Usuario implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -82,7 +81,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public Set<Proyecto> getProyectos() {
-		System.out.println("Obtiene proyectos");
+		//System.out.println("Obtiene proyectos");
 		return proyectos;
 	}
 	
@@ -129,7 +128,7 @@ public class Usuario implements Serializable {
 	
 	public List<Modelo> getModelos(String nombreProyecto, int version) {
 		Proyecto proyecto = getProyecto(nombreProyecto);
-		System.out.println(proyectos);
+		//System.out.println(proyectos);
 		return proyecto.getModelos(version);
 	}
 	
