@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
 	
 	@Column
 	private String password;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
 	
