@@ -35,6 +35,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="autor")
 	private Set<Proyecto> proyectos;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="compartido",
 	joinColumns=@JoinColumn(name="id_usuario"),
