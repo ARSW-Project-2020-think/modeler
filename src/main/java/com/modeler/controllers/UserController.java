@@ -21,6 +21,8 @@ import com.modeler.security.JwtToken;
 import com.modeler.security.JwtUserDetailsService;
 import com.modeler.services.UserServices;
 
+import java.util.regex.Pattern;
+
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping(value="/user")
@@ -40,9 +42,18 @@ public class UserController {
 	public ResponseEntity<?> createUser(@RequestBody Usuario user){
 		try {
 			System.out.println(user.getPassword());
-			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-			userService.add(user);
-			return new ResponseEntity<>(user,HttpStatus.OK);
+			String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{8,}$";
+			Pattern pat = Pattern.compile(pattern);
+			boolean validPsw=pat.matcher(user.getPassword()).matches();
+			if(!validPsw){
+				System.out.println("aaa");
+				return new ResponseEntity<>("La contraseña no cuenta con los parámetros de seguridad requeridos",HttpStatus.BAD_REQUEST);
+			}
+			else {
+				user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+				userService.add(user);
+				return new ResponseEntity<>(user,HttpStatus.OK);
+			}
 		} catch (ModelerException e) {
 			return new ResponseEntity<>(user,HttpStatus.BAD_REQUEST);
 		}
