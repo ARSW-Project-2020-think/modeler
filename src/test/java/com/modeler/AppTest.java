@@ -81,7 +81,7 @@ public class AppTest {
     	System.out.println("PRUEBA 1 \n \n");
         try {
 
-            String v = mapper.writeValueAsString(new Usuario("cesarvilla@hotmail.com", "cesar", "123"));
+            String v = mapper.writeValueAsString(new Usuario("cesarvilla@hotmail.com", "cesar", "Contraseña123+"));
             mock.perform(post("/user").content(v).contentType("application/json")).andExpect(status().is2xxSuccessful());
         } catch (Exception e) {
             e.printStackTrace();
