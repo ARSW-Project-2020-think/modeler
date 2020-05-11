@@ -40,10 +40,7 @@ public class Modelo implements Serializable {
 
 	@OneToMany(mappedBy="modelo",cascade=CascadeType.ALL)
 	private List<Componente> componentes;
-	
-	@OneToMany(mappedBy="modelo")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Linea> lineas;
+
 	
 	@Column
 	private String tipo;
@@ -100,37 +97,12 @@ public class Modelo implements Serializable {
 		this.tipo = tipo;
 	}
 
-
-	public List<Linea> getLineas() {
-		return lineas;
-	}
-
-	public void setLineas(List<Linea> lineas) {
-		this.lineas = lineas;
-	}
-
 	public List<Componente> getComponentes() {
 		return componentes;
 	}
 
 	public void setComponentes(List<Componente> componentes) {
 		this.componentes = componentes;
-	}
-
-	public Linea getLinea(Linea linea) {
-		for(Linea l: lineas) {
-			if(l.getX1()==linea.getX1() && l.getY1()==linea.getY1() && l.getY2()==linea.getY2() && linea.getX2()==l.getX2()
-					&& l.getNombre1().equals(linea.getNombre1()) && l.getNombre2().equals(linea.getNombre2()))
-				return l;
-		}
-		return null;
-	}
-	
-	public Linea getLineaById(int id) {
-		for(Linea l:lineas) {
-			if(l.getId()==id) return l;
-		}
-		return null;
 	}
 
 	public Componente getComponente(Componente ov) {

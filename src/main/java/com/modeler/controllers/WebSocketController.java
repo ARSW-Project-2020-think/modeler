@@ -16,7 +16,6 @@ import com.modeler.model.Modelo;
 import com.modeler.model.Rectangulo;
 import com.modeler.services.AtributeServices;
 import com.modeler.services.ComponentServices;
-import com.modeler.services.LineServices;
 import com.modeler.services.MethodServices;
 import com.modeler.services.ModelServices;
 import com.modeler.services.RectangleServices;
@@ -28,8 +27,6 @@ public class WebSocketController {
 	private ModelServices services;
 	@Autowired
 	private RectangleServices rectangles;
-	@Autowired
-	private LineServices lines;
 	@Autowired
 	private MethodServices metodos;
 	@Autowired

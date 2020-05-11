@@ -41,7 +41,6 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody Usuario user){
 		try {
-			System.out.println(user.getPassword());
 			String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{8,}$";
 			Pattern pat = Pattern.compile(pattern);
 			boolean validPsw=pat.matcher(user.getPassword()).matches();
