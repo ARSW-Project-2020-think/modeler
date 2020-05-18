@@ -197,3 +197,8 @@ Una vez hayamos escogido el nombre apropiado para nuestra clase, sólo basta con
 
 ![img](img/Aplicacion/app8.png)
 
+### Diagrama de despliegue 
+
+
+![img](img/despliegue.JPG)
+
