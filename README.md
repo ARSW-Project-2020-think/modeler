@@ -202,3 +202,6 @@ Una vez hayamos escogido el nombre apropiado para nuestra clase, sólo basta con
 
 ![img](img/despliegue.JPG)
 
+### Manual de uso de la aplicacion
+[Manual](https://modeler-front-end.herokuapp.com/docs.html)
+
